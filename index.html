@@ -1,181 +1,137 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./output.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>Husain Shawkat</title>
-  </head>
-  <body class="m-0 p-0">
-    <!-- Navbar -->
-    <header class="w-full bg-gray-800 fixed top-0 z-50">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4"
-      >
-        <!-- Logo / Site Title -->
-        <div class="text-2xl font-bold text-white hover:text-green-500">
-          Husain Shawkat
-        </div>
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Husain Shawkat | Photographer</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    .hero-section {
+      background-image: url('img/Sh_20241221_131240462husain_shawkat (1).jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="m-0 p-0">
+
+  <!-- Navbar -->
+  <header class="w-full bg-gray-800 fixed top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+      <!-- Logo -->
+      <div class="text-2xl font-bold text-white hover:text-green-500">
+        Husain Shawkat
       </div>
-
-      <!-- Mobile Menu (hidden by default) -->
-
-        <button
- 
-        </button>
+      <!-- Navigation Links -->
+      <nav class="space-x-6 text-gray-300 hidden md:flex">
+        <a href="#about" class="hover:text-green-500">About</a>
+        <a href="#services" class="hover:text-green-500">Services</a>
+        <a href="#contact" class="hover:text-green-500">Contact</a>
       </nav>
-    </header>         
+    </div>
+  </header>
 
-    <script>
-      // Toggle mobile menu
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
+  <!-- Hero Section -->
+  <section class="h-screen hero-section relative">
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
-      menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-    </script>
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+      <h1 class="text-5xl font-bold">Welcome</h1>
+      <h2 class="text-4xl mt-4">
+        I'm <span class="text-green-500"><a href="https://husainshawkat.blogspot.com/" class="hover:text-green-500">Husain Shawkat</a></span>
+      </h2>
+      <p class="text-2xl mt-2">Photographer & Editor</p>
+      <a href="#about" class="mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 rounded text-white font-semibold">Explore My Photography</a>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section
-      class="h-screen bg-cover bg-center bg-fixed relative"
-      style="background-image: url('img/Sh_20241221_131240462husain_shawkat (1).jpg')"
-    >
-      <!-- Overlay -->
-      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
-      <!-- Content Layer -->
-      <div
-        class="relative z-10 flex flex-col items-center justify-center h-full text-center"
-      >
-        <h1 class="text-5xl md:text-6xl font-bold text-white">Welcome</h1>
-        <h2 class="text-4xl md:text-5xl font-bold text-white mt-4">
-          I'm <span class="text-green-500"><a href="https://husainshawkat.blogspot.com/" class="hover:text-green-500">Husain Shawkat</a></span>
-        </h2>
-        <p class="text-xl md:text-2xl text-gray-300 mt-2">
-          Photographer & Editor
-        </p>
-        <p class="text-xl md:text-2xl text-gray-300 mt-2">
-         <a href="https://husainshawkat.blogspot.com/" class="text-green-500 text-xl font-semibold mt-2">
- <li>See My Photography</li> </a>
-        </p>
-        
-      </div>
-    </section>
-
-    <!-- About Section -->
-    	
-    <section
-      class="flex flex-col md:flex-row items-center justify-center md:space-x-10 space-y-6 md:space-y-0 max-w-7xl mx-auto py-12 px-4"
-    >
-      <!-- Image Section -->
-      <div class="relative ml-10">
-        <div
-          class="absolute inset-0 transform translate-x-4 translate-y-4 border-4 border-green-500 rounded-lg"
-        ></div>
-        <img
-          class="relative w-80 h-80 rounded-lg object-cover"
-          src="img/20241223_041739.jpg"
-          alt="Profile Image"
-        />
-      </div>
-
-      <!-- Text Section -->
-      <div class="text-center md:text-left md:ml-10">
-        <h2 class="text-4xl font-bold text-gray-800">Husain Shawkat</h2>
-        <p class="text-green-500 text-xl font-semibold mt-2">
-          Photographer
-        </p>
-        <p class="text-gray-600 mt-4">
-          Photography is my hobby
-        </p>
-
-        <!-- Information List -->
-        <ul class="mt-6 space-y-2">
-          <li>
-            <span class="text-green-500">●</span> From:
-            <span class="font-semibold text-gray-800">Kurigram,BD</span>
-          </li>
-          <li>
-            <span class="text-green-500">●</span> Lives In:
-            <span class="font-semibold text-gray-800">Rangpur, BD</span>
-          </li>
-          <li>
-            <span class="text-green-500">●</span> Age:
-            <span class="font-semibold text-gray-800">19</span>
-          </li>
-          <li>
-            <span class="text-green-500">●</span> Gender:
-            <span class="font-semibold text-gray-800">Male</span>
-          </li>
-        </ul>
-   
-  <!-- Footer Section -->
-    <footer class="bg-gray-900 text-white pl-10 py-12">
-      <div class="container mx-auto px-4">
-        <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left"
-        >
-          <div>
-            <h4 class="font-semibold mb-4">Where to find me</h4>
-            <p class="text-gray-400">----------------</p>
-            <p class="text-gray-300 mt-4">
-             Kachakata<br />
-              Kurigram, Rangpur, Bangladesh
-            </p>
-          </div>
-
-          <!-- Social Media Links Section -->
-          <div>
-            <h4 class="font-semibold mb-4">Follow me</h4>
-            <p class="text-gray-400">----------------</p>
-            <ul class="text-gray-300 mt-4 space-y-2">
-              <li><a href="https://www.instagram.com/husain_shawkat" class="hover:text-green-500">Instagram</a> </li>
-              <li><a href="https://www.facebook.com/husainshawkat.id" class="hover:text-green-500">Facebook</a> </li>
-              <li><a href="https://x.com/HusainShawkat?t=s8VdTud3gYL6h4-hjComyA&s=09" class="hover:text-green-500">Twitter</a> </li>
-              <li><a href="https://t.me/husain_shawkat" class="hover:text-green-500">Telegram</a> </li>
-            </ul>
-          </div>
-
-          <!-- Contact Info Section -->
-          <div>
-            <h4 class="font-semibold mb-4">Contact me</h4>
-            <p class="text-gray-400">----------------</p>
-            <ul class="text-gray-300 mt-4 space-y-2">
-              <li>
-                <a
-                  href="mailto:husainshawkat@yahoo.com"
-                  class="hover:text-green-500"
-                  >Mail</a
-                >
-              </li>
-              <li>
-                <a href="https://wa.me/+8801521751139" class="hover:text-green-500"
-                  >WhatsApp</a
-                >
-              </li>
-            </ul>
-          </div>
+  <!-- About Section -->
+  <section id="about" class="py-12 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center text-gray-800">About Me</h2>
+      <p class="text-center text-gray-600 mt-4">Photography is my hobby, and I love to capture moments that tell a story.</p>
+      <div class="flex flex-col md:flex-row items-center mt-10">
+        <!-- Profile Image -->
+        <div class="relative">
+          <div class="absolute inset-0 transform translate-x-4 translate-y-4 border-4 border-green-500 rounded-lg"></div>
+          <img src="img/20241223_041739.jpg" alt="Profile Image" class="relative w-80 h-80 rounded-lg shadow-md mx-auto">
         </div>
+        <!-- About Content -->
+        <div class="mt-10 flex flex-col items-center text-center">
+          <h3 class="text-2xl font-semibold text-gray-800">Husain Shawkat</h3>
+          <p class="text-gray-600 mt-4">
+            I am Husain Shawkat, a photographer and editor based in Rangpur, Bangladesh. I capture moments that inspire and connect nature.
+          </p>
+          <ul class="mt-6 space-y-2">
+            <li><span class="text-green-500">●</span> From: <span class="font-semibold text-gray-800">Kurigram, BD</span></li>
+            <li><span class="text-green-500">●</span> Lives In: <span class="font-semibold text-gray-800">Rangpur, BD</span></li>
+            <li><span class="text-green-500">●</span> Age: <span class="font-semibold text-gray-800">19</span></li>
+            <li><span class="text-green-500">●</span> Gender: <span class="font-semibold text-gray-800">Male</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Services Section -->
+  <section id="services" class="py-12 bg-white">
+   <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center text-gray-800">Services</h2>
+      <p class="text-center text-gray-600 mt-4">Here are the services I Do.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+      
+        <div class="p-6 bg-gray-100 rounded-lg shadow-md text-center">
+          <h3 class="text-2xl font-semibold text-gray-800"><a href="https://husainshawkat.blogspot.com/" class="hover:text-green-500">Photography</a></h3>
+          <p class="text-gray-600 mt-4">Capturing moments with creativity and passion.</p>
+        </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>
 
-    
-
-        <div class="mt-8 text-center text-gray-500 text-sm">
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8 text-center flex flex-col items-center space-y-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h4 class="font-semibold">Find Me</h4>
+          <p class="text-gray-400 mt-2">Kachakata, Kurigram, Rangpur, Bangladesh</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">Follow Me</h4>
+          <ul class="space-y-2 mt-2">
+            <li><a href="https://www.instagram.com/husain_shawkat" class="hover:text-green-500">Instagram</a></li>
+            <li><a href="https://www.facebook.com/husainshawkat.id" class="hover:text-green-500">Facebook</a></li>
+            <li><a href="https://x.com/HusainShawkat?t=s8VdTud3gYL6h4-hjComyA&s=09" class="hover:text-green-500">Twitter</a></li>
+            <li><a href="https://t.me/husain_shawkat" class="hover:text-green-500">Telegram</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Contact Me</h4>
+          <ul class="space-y-2 mt-2">
+            <li><a href="mailto:husainshawkat@yahoo.com" class="hover:text-green-500">Mail</a></li>
+            <li><a href="https://wa.me/+8801521751139" class="hover:text-green-500">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+       <div class="mt-8 text-center text-gray-500 text-sm">
           <p>
             Copyright ©2024. All rights reserved |
             <a href="https://husainshawkat.blogspot.com/" class="hover:text-green-500">Husain Shawkat</a>
           </p>
         </div>
-      </div>
-    </footer>
-  </body>
-      </html>
+    </div>
+  </footer>
+</body>
+</html>
