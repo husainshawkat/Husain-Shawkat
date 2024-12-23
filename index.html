@@ -1,90 +1,40 @@
-<!DOCTYPE html>
+p০০<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Husain Shawkat | Photographer</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-    }
-
-    .hero-bg {
+    .hero-section {
       background-image: url('img/Sh_20241221_131240462husain_shawkat (1).jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
-
-    .section-heading {
-      font-size: 2.5rem;
-      font-weight: bold;
-    }
-
-    .cta-btn {
-      background-color: #1DB954;
-      color: white;
-      padding: 12px 36px;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta-btn:hover {
-      background-color: #1ED760;
-    }
-
-    .service-card {
-      background-color: #2D3748;
-      border-radius: 12px;
-      padding: 30px;
-      transition: transform 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .footer-icons a {
-      margin: 0 15px;
-      font-size: 24px;
-      color: white;
-      transition: color 0.3s ease;
-    }
-
-    .footer-icons a:hover {
-      color: #1DB954;
-    }
-
-    .text-shadow {
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-    }
-
-    .rounded-img {
-      border-radius: 50%;
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-    }
   </style>
 </head>
+<body class="m-0 p-0">
 
-<body class="bg-gray-800 text-white">
-
-<!-- Navbar -->
+  <!-- Navbar -->
   <header class="w-full bg-gray-800 fixed top-0 z-50 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
       <!-- Logo -->
       <div class="text-2xl font-bold text-white hover:text-green-500">
         Husain Shawkat
       </div>
-      <nav class="space-x-6 text-gray-200 hidden md:flex">
-        <a href="#about" class="hover:text-green-400">About</a>
-        <a href="#services" class="hover:text-green-400">Services</a>
-        <a href="#contact" class="hover:text-green-400">Contact</a>
+      <!-- Navigation Links -->
+      <nav class="space-x-6 text-gray-300 hidden md:flex">
+        <a href="#about" class="hover:text-green-500">About</a>
+        <a href="#services" class="hover:text-green-500">Services</a>
+        <a href="#contact" class="hover:text-green-500">Contact</a>
       </nav>
     </div>
   </header>
@@ -105,57 +55,65 @@
     </div>
   </section>
 
-
   <!-- About Section -->
-  <section id="about" class="py-16 bg-gray-700">
+  <section id="about" class="py-12 bg-gray-100">
     <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-center mt-10">
-        <img src=img/20241223_041739.jpg" alt="Profile Image" class="rounded-img border-4 border-green-500 shadow-xl">
-      </div>
-      <h2 class="section-heading text-center">Husain Shawkat</h2>
-     
-      <p class="text-center text-gray-300 mt-4">Hello, I'm Husain Shawkat, a passionate photographer and editor. Based in Rangpur, Bangladesh, I specialize in capturing moments that tell stories through creative lenses.</p>
-
-      
-      <div class="text-center mt-8 text-gray-300">
-        <p>From: <span class="font-semibold">Kurigram, BD</span></p>
-        <p>Currently based in: <span class="font-semibold">Rangpur, BD</span></p>
-        <p>Age: <span class="font-semibold">19</span></p>
-        <p>Gender: <span class="font-semibold">Male</span></p>
+      <h2 class="text-4xl font-bold text-center text-gray-800">About Me</h2>
+      <p class="text-center text-gray-600 mt-4">Photography is my hobby, and I love to capture moments that tell a story.</p>
+      <div class="flex flex-col md:flex-row items-center mt-10">
+        <!-- Profile Image -->
+        <div class="relative">
+          <div class="absolute inset-0 transform translate-x-4 translate-y-4 border-4 border-green-500 rounded-lg"></div>
+          <img src="img/20241223_041739.jpg" alt="Profile Image" class="relative w-80 h-80 rounded-lg shadow-md mx-auto">
+        </div>
+        <!-- About Content -->
+        <div class="mt-10 flex flex-col items-center text-center">
+          <h3 class="text-2xl font-semibold text-gray-800">Husain Shawkat</h3>
+          <p class="text-gray-600 mt-4">
+           I capture moments that inspire and connect nature.
+          </p>
+          <ul class="mt-6 space-y-2">
+            <li><span class="text-green-500">●</span> From: <span class="font-semibold text-gray-800">Kurigram, BD</span></li>
+            <li><span class="text-green-500">●</span> Lives In: <span class="font-semibold text-gray-800">Rangpur, BD</span></li>
+            <li><span class="text-green-500">●</span> Age: <span class="font-semibold text-gray-800">19</span></li>
+            <li><span class="text-green-500">●</span> Gender: <span class="font-semibold text-gray-800">Male</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Services Section -->
-  <section id="services" class="py-16 bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="section-heading text-center">Services</h2>
-      <p class="text-center text-gray-400 mt-4">Discover the wide range of services I offer to bring your visions to life.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
-        <div class="service-card text-center">
-          <h3 class="text-2xl font-semibold text-white">Photography</h3>
-          <p class="text-gray-300 mt-4">Capturing your precious moments with professionalism and creativity.</p>
+  <section id="services" class="py-12 bg-white">
+   <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center text-gray-800">Services</h2>
+      <p class="text-center text-gray-600 mt-4">Here are the services I Do.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+      
+        <div class="p-6 bg-gray-100 rounded-lg shadow-md text-center">
+          <h3 class="text-2xl font-semibold text-gray-800"><a href="https://husainshawkat.blogspot.com/" class="hover:text-green-500">Photography</a></h3>
+          <p class="text-gray-600 mt-4">Capturing moments with creativity and passion.</p>
         </div>
-        <div class="service-card text-center">
-          <h3 class="text-2xl font-semibold text-white">Photo Editing</h3>
-          <p class="text-gray-300 mt-4">Enhancing your photos to bring out the best of your captured moments.</p>
+        
         </div>
-
       </div>
     </div>
   </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-gray-700">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="section-heading text-white">Contact Me</h2>
-      <p class="text-gray-400 mt-4">Have a question or want to book a session? Get in touch with me!</p>
-      <div class="mt-8">
-        <a href="mailto:husainshawkat@yahoo.com" class="cta-btn">Email Me</a>
-      </div>
+<!-- Contact Section -->
+<section id="contact" class="py-16 bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <h2 class="text-4xl font-extrabold text-white leading-tight">Get In Touch</h2>
+    <p class="text-gray-300 mt-4 text-lg md:w-2/3 mx-auto">
+       Reach out to me via email, and let’s connect!
+    </p>
+    <div class="mt-8">
+      <a href="mailto:husainshawkat@yahoo.com" 
+         class="bg-gradient-to-r from-pink-500 to-yellow-500 text-white py-3 px-8 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+        Email Me
+      </a>
     </div>
-  </section>
-
+  </div>
+</section>
 <!-- Footer -->
 <footer class="bg-gray-900 py-12 text-center text-white">
   <div class="max-w-7xl mx-auto px-4">
@@ -198,7 +156,5 @@
     </div>
   </div>
 </footer>
-
 </body>
-
 </html>
