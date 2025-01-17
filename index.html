@@ -43,7 +43,34 @@
   <section class="h-screen hero-section relative">
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
+    <style>
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .whatsapp-button img {
+            width: 35px;
+            height: 35px;
+        }
+    </style>
+</head>
+<body>
+   
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/+8801521751139?text=Hi! I am interested in your services." target="_blank" class="whatsapp-button">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
     <!-- Content -->
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
       <h1 class="text-5xl font-bold">Welcome</h1>
