@@ -163,16 +163,24 @@
 <!-- Slider Script -->
 <script>
   let slideIndex = 0;
-  const slides = document.querySelectorAll(".slide");
+const slides = document.querySelectorAll(".slide");
 
-  function showSlides() {
-    slides.forEach(slide => slide.style.opacity = "0");
-    slides[slideIndex].style.opacity = "1";
-    slideIndex = (slideIndex + 1) % slides.length;
-    setTimeout(showSlides, 3000);
-  }
+function showSlides() {
+  // প্রথমে সব স্লাইডের opacity ০ করা হবে
+  slides.forEach(slide => slide.style.opacity = "2");
+  
+  // বর্তমান স্লাইডের opacity ১ করা হবে (দৃশ্যমান হবে)
+  slides[slideIndex].style.opacity = "2";
+  
+  // স্লাইডের ইনডেক্স আপডেট করা হবে
+  slideIndex = (slideIndex +2) % slides.length;
+  
+  // স্লাইড পরিবর্তনের জন্য ৩ সেকেন্ড পর পর ফাংশনটি আবার কল হবে
+  setTimeout(showSlides, 4000); // 3000 মিলিসেকেন্ড = 3 সেকেন্ড
+}
 
-  showSlides();
+// প্রথমবার স্লাইড শুরু করা
+showSlides();
 </script>
 
   <!-- Contact Section -->
