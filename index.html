@@ -110,24 +110,26 @@
       </div>
     </div>
   </section>
-<!-- Image Slider -->
+
+
+<!-- Image Slider Section -->
 <section class="py-12 bg-gray-900">
-  <div class="max-w-5xl mx-auto px-4">
+  <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-4xl font-bold text-center text-white">Photo Gallery</h2>
-    <p class="text-center text-gray-300 mt-4">
-      Some of my best photography collections.
-    </p>
+    <p class="text-center text-gray-300 mt-4">Some of my best photography collections.</p>
+    
     <div class="slider-container">
       <div class="slider">
-        <div class="slide"><img src="PG/retouch_2025022217325575.jpg" alt="Fly"></div>
-        <div class="slide"><img src="PG/1741444570626.jpg" alt="Moon"></div>
+        <div class="slide"><img src="PG/photo1.jpg" alt="Image 1"></div>
+        <div class="slide"><img src="PG/photo2.jpg" alt="Image 2"></div>
+        <div class="slide"><img src="PG/photo3.jpg" alt="Image 3"></div>
       </div>
 
-      <!-- Navigation Buttons -->
+      <!-- Navigation Arrows -->
       <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
       <button class="next" onclick="changeSlide(1)">&#10095;</button>
 
-      <!-- Dots for navigation -->
+      <!-- Dots Navigation -->
       <div class="dots-container"></div>
     </div>
   </div>
@@ -138,23 +140,19 @@
   .slider-container {
     position: relative;
     width: 100%;
-    max-width: 850px;
+    max-width: 900px;
     margin: auto;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #1a1a1a, #292929);
-    padding: 10px;
-    border-radius: 15px;
+    border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    border: 4px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255, 255, 255, 0.3);
   }
 
   .slider {
     display: flex;
-    width: 100%;
-    height: 100%;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -162,24 +160,21 @@
 
   .slide {
     position: absolute;
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 1.2s ease-in-out;
   }
 
   .slide img {
-    max-width: 100%;
-    max-height: 500px;
+    width: 100%;
     height: auto;
-    width: auto;
-    object-fit: contain;
+    object-fit: contain; /* Maintain the original aspect ratio */
+    max-height: 600px;
     border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    border: 5px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border: 4px solid rgba(255, 255, 255, 0.4);
   }
 
   .active {
@@ -191,7 +186,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
     padding: 12px 18px;
@@ -203,16 +198,12 @@
   }
 
   .prev:hover, .next:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
+    color: black;
   }
 
-  .prev {
-    left: 15px;
-  }
-
-  .next {
-    right: 15px;
-  }
+  .prev { left: 15px; }
+  .next { right: 15px; }
 
   /* Dots Navigation */
   .dots-container {
@@ -239,7 +230,7 @@
     transform: scale(1.2);
   }
 
-  /* Responsive Design */
+  /* Responsive */
   @media screen and (max-width: 768px) {
     .prev, .next {
       font-size: 18px;
@@ -291,13 +282,14 @@
 
   function autoSlide() {
     changeSlide(1);
-    setTimeout(autoSlide, 3000);
+    setTimeout(autoSlide, 4000);
   }
 
   createDots();
   showSlides();
-  setTimeout(autoSlide, 3000);
+  setTimeout(autoSlide, 4000);
 </script>
+
 
   <!-- Contact Section -->
   <section id="contact" class="py-16 bg-gray-900">
