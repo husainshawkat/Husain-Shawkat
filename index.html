@@ -122,7 +122,8 @@
       <div class="slider">
         <div class="slide"><img src="PG/retouch_2025022217325575.jpg" alt="Image 1"></div>
         <div class="slide"><img src="PG/1741444570626.jpg" alt="Image 2"></div>
-           </div>
+
+      </div>
 
       <!-- Navigation Arrows -->
       <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
@@ -168,9 +169,8 @@
 
   .slide img {
     width: 100%;
-    height: auto;
-    object-fit: contain; /* Maintain the original aspect ratio */
-    max-height: 600px;
+    height: 100%;
+    object-fit: cover; /* Ensures image retains its aspect ratio and covers the container */
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     border: 4px solid rgba(255, 255, 255, 0.4);
@@ -229,7 +229,7 @@
     transform: scale(1.2);
   }
 
-  /* Responsive */
+  /* Responsive Design */
   @media screen and (max-width: 768px) {
     .prev, .next {
       font-size: 18px;
@@ -237,6 +237,7 @@
     }
 
     .slide img {
+      height: auto;
       max-height: 400px;
     }
   }
