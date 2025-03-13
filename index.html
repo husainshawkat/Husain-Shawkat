@@ -112,7 +112,6 @@
   </section>
 
 
-
 <!-- Image Slider -->
 <section class="py-12 bg-gray-900">
   <div class="max-w-5xl mx-auto px-4">
@@ -122,16 +121,14 @@
     </p>
     <div class="relative w-full mt-8">
       <div class="slider">
-        <img src="PG/retouch_2025022217325575.jpg" class="slide fade w-full rounded-lg shadow-md">
-        <img src="PG/1741444570626.jpg" class="slide fade w-full rounded-lg shadow-md">
-<img src="PG/1000050875.jpg" class="slide fade w-full rounded-lg shadow-md">
-
+        <img src="PG/retouch_2025022217325575.jpg" class="slide">
+        <img src="PG/1741444570626.jpg" class="slide">
+        <img src="PG/1000050875.jpg" class="slide">
       </div>
     </div>
   </div>
 </section>
 
-<!-- Slider Styles -->
 <style>
   .slider {
     position: relative;
@@ -144,44 +141,39 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0;
-    transition: opacity 3s ease-in-out;
+    transition: opacity 1s ease-in-out;
   }
 
-  .fade {
-    animation: fadeEffect 3s infinite;
-  }
-
-  @keyframes fadeEffect {
-    0% { opacity: 0; }
-    33% { opacity: 1; }
-    66% { opacity: 1; }
-    100% { opacity: 0; }
+  .slide.active {
+    opacity: 1;
   }
 </style>
 
-<!-- Slider Script -->
 <script>
-  let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
 
-function showSlides() {
-  // প্রথমে সব স্লাইডের opacity ০ করা হবে
-  slides.forEach(slide => slide.style.opacity = "3");
-  
-  // বর্তমান স্লাইডের opacity ১ করা হবে (দৃশ্যমান হবে)
-  slides[slideIndex].style.opacity = "3";
-  
-  // স্লাইডের ইনডেক্স আপডেট করা হবে
-  slideIndex = (slideIndex +1) % slides.length;
-  
-  // স্লাইড পরিবর্তনের জন্য ৩ সেকেন্ড পর পর ফাংশনটি আবার কল হবে
-  setTimeout(showSlides, 4000); // 3000 মিলিসেকেন্ড = 3 সেকেন্ড
-}
+  function nextSlide() {
+    // Remove active class from current slide
+    slides[currentSlide].classList.remove("active");
+    
+    // Calculate next slide index
+    currentSlide = (currentSlide + 1) % slides.length;
+    
+    // Add active class to next slide
+    slides[currentSlide].classList.add("active");
+  }
 
-// প্রথমবার স্লাইড শুরু করা
-showSlides();
+  // Initialize first slide
+  slides[currentSlide].classList.add("active");
+
+  // Start slider
+  setInterval(nextSlide, 3000);
+</script>
+
+
 </script>
 
   <!-- Contact Section -->
