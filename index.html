@@ -55,11 +55,46 @@
         Husain Shawkat
       </div>
       <!-- Navigation Links -->
-      <nav class="space-x-6 text-gray-300 hidden md:flex">
-        <a href="#about" class="hover:text-green-500">About</a>
-     
-        <a href="contact.html" class="hover:text-green-500">Contact</a>
-      </nav>
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-900 flex justify-center items-center h-screen">
+    <div class="relative" x-data="{ open: false }">
+        <button @click="open = !open" class="p-3 bg-gray-700 text-white rounded-full hover:bg-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h18M3 18h18"></path>
+            </svg>
+        </button>
+
+        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-40 bg-gray-800 rounded-lg shadow-lg text-white">
+            <a href="#about" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 4h.01"></path>
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+                </svg>
+                About
+            </a>
+            <a href="contact.html" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.25v10.5a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18.75V8.25m-18 0L12 3l9 5.25m-18 0L12 14.25 21 8.25"></path>
+                </svg>
+                Contact
+            </a>
+            <a href="https://t.me/PremiumAppAccount" target="_blank" class="flex items-center px-4 py-2 hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 3.75L2.25 12l7.5 3 1.5 4.5 3-3 4.5 3 3-15z"></path>
+                </svg>
+                Telegram
+            </a>
+        </div>
+    </div>
+</body>
+</html>
     </div>
   </header>
 
