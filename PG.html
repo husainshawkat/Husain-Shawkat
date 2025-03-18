@@ -1,294 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Photo Gallery Slider</title>
-  <style>
-    /* Improved Gallery Styles */
-    :root {
-      --primary-color: rgba(255, 255, 255, 0.9);
-      --secondary-color: rgba(255, 255, 255, 0.6);
-    }
+<!-- Image Slider -->
+<section id="photography" class="py-12 bg-gray-900">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center text-white">Photo Gallery</h2>
+    <p class="text-center text-gray-300 mt-4">Some of my best photography collections.</p>
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #0a0a0a;
-      color: white;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .gallery-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 20px;
-      flex: 1;
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-
-    p {
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
-
-    /* Enhanced Slider Container */
-    .slider-container {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      background: #000;
-      aspect-ratio: 16/9;
-    }
-
-    .slider {
-      display: flex;
-      height: 100%;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .slide {
-      min-width: 100%;
-      position: relative;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    /* Improved Navigation Controls */
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid var(--secondary-color);
-      color: var(--primary-color);
-      padding: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .prev { left: 1.5rem; }
-    .next { right: 1.5rem; }
-
-    .prev:hover, .next:hover {
-      background: rgba(255, 255, 255, 0.9);
-      color: #000;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    /* Modern Dots Indicators */
-    .dots-container {
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      margin: 1.5rem 0;
-    }
-
-    .dot {
-      width: 14px;
-      height: 14px;
-      background: var(--secondary-color);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .dot.active {
-      background: var(--primary-color);
-      transform: scale(1.3);
-    }
-
-    /* Enhanced Thumbnails */
-    .thumbnails {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 0.8rem;
-      padding: 0 1rem;
-    }
-
-    .thumbnails img {
-      width: 100%;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 6px;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .thumbnails img:hover,
-    .thumbnails img.active-thumb {
-      opacity: 1;
-      transform: scale(1.05);
-      border-color: var(--primary-color);
-    }
-
-    @media (max-width: 768px) {
-      .slider-container {
-        border-radius: 8px;
-      }
-      
-      .prev, .next {
-        padding: 0.8rem;
-        font-size: 1.2rem;
-      }
-      
-      .thumbnails {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
-</head>
-<body>
-
-<div class="gallery-container">
-  <h2>Photo Gallery</h2>
-  <p>Some of my best photography collections.</p>
-
-  <div class="slider-container">
-    <div class="slider">
-      <div class="slide"><img src="PG/retouch_2025022217325575.jpg" loading="lazy"></div>
-      <div class="slide"><img src="PG/1741444570626.jpg" loading="lazy"></div>
-      <div class="slide"><img src="PG/1000050875.jpg" loading="lazy"></div>
-      <div class="slide"><img src="PG/1000050868.jpg" loading="lazy"></div>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide"><img src="PG/retouch_2025022217325575.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1741444570626.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1000050875.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1000050868.jpg" class="slide-image"></div>
+      </div>
+      <!-- Navigation Buttons -->
+      <button class="prev" onclick="prevSlide()">❮</button>
+      <button class="next" onclick="nextSlide()">❯</button>
     </div>
-    <button class="prev" aria-label="Previous slide">❮</button>
-    <button class="next" aria-label="Next slide">❯</button>
   </div>
+</section>
 
-  <div class="dots-container"></div>
-  <div class="thumbnails"></div>
-</div>
+<style>
+  .slider-container {
+    position: relative;
+    max-width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .slider {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide {
+    min-width: 100%;
+    overflow: hidden;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+
+  /* Navigation Buttons */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 10;
+    transition: background 0.3s;
+  }
+
+  .prev { left: 15px; }
+  .next { right: 15px; }
+
+  .prev:hover, .next:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+  }
+</style>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const slider = document.querySelector('.slider');
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
-  let currentIndex = 0;
-  let autoSlideInterval;
-  let isTransitioning = false;
+  document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
 
-  // Generate dynamic dots and thumbnails
-  function createNavigation() {
-    const dotsContainer = document.querySelector('.dots-container');
-    const thumbnailsContainer = document.querySelector('.thumbnails');
-
-    slides.forEach((slide, index) => {
-      // Create dots
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      dot.addEventListener('click', () => setSlide(index));
-      dotsContainer.appendChild(dot);
-
-      // Create thumbnails
-      const imgSrc = slide.querySelector('img').src;
-      const thumbnail = document.createElement('img');
-      thumbnail.src = imgSrc;
-      thumbnail.alt = `Thumbnail ${index + 1}`;
-      thumbnail.addEventListener('click', () => setSlide(index));
-      thumbnailsContainer.appendChild(thumbnail);
-    });
-  }
-
-  // Update all states
-  function updateStates() {
-    // Update slider position
-    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-    // Update dots
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
-    });
-
-    // Update thumbnails
-    document.querySelectorAll('.thumbnails img').forEach((thumb, index) => {
-      thumb.classList.toggle('active-thumb', index === currentIndex);
-    });
-
-    isTransitioning = false;
-  }
-
-  function nextSlide() {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateStates();
-  }
-
-  function prevSlide() {
-    if (isTransitioning) return;
-    isTransitioning = true;
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateStates();
-  }
-
-  function setSlide(index) {
-    if (isTransitioning || index === currentIndex) return;
-    isTransitioning = true;
-    currentIndex = index;
-    updateStates();
-  }
-
-  // Auto-slide with pause
-  function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 5000);
-  }
-
-  function pauseAutoSlide() {
-    clearInterval(autoSlideInterval);
-  }
-
-  // Event Listeners
-  document.querySelector('.prev').addEventListener('click', prevSlide);
-  document.querySelector('.next').addEventListener('click', nextSlide);
-  
-  document.querySelector('.slider-container').addEventListener('mouseenter', pauseAutoSlide);
-  document.querySelector('.slider-container').addEventListener('mouseleave', startAutoSlide);
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') prevSlide();
-    if (e.key === 'ArrowRight') nextSlide();
-  });
-
-  // Touch swipe support
-  let touchStartX = 0;
-  slider.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener('touchend', (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-      diff > 0 ? nextSlide() : prevSlide();
+    function updateSlide() {
+      document.querySelector(".slider").style.transform = `translateX(-${currentIndex * 100}%)`;
     }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Auto Slide with Pause on Hover
+    let slideInterval = setInterval(nextSlide, 3000);
+    
+    document.querySelector(".slider-container").addEventListener("mouseenter", () => {
+      clearInterval(slideInterval);
+    });
+
+    document.querySelector(".slider-container").addEventListener("mouseleave", () => {
+      slideInterval = setInterval(nextSlide, 3000);
+    });
   });
-
-  // Initialize
-  createNavigation();
-  updateStates();
-  startAutoSlide();
-});
 </script>
-
-</body>
-</html>
