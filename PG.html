@@ -1,1 +1,104 @@
+<!-- Image Slider -->
+<section id="photography" class="py-12 bg-gray-900">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center text-white">Photo Gallery</h2>
+    <p class="text-center text-gray-300 mt-4">Some of my best photography collections.</p>
 
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide"><img src="PG/retouch_2025022217325575.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1741444570626.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1000050875.jpg" class="slide-image"></div>
+        <div class="slide"><img src="PG/1000050868.jpg" class="slide-image"></div>
+      </div>
+      <!-- Navigation Buttons -->
+      <button class="prev" onclick="prevSlide()">❮</button>
+      <button class="next" onclick="nextSlide()">❯</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .slider-container {
+    position: relative;
+    max-width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .slider {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide {
+    min-width: 100%;
+    overflow: hidden;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+
+  /* Navigation Buttons */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+    z-index: 10;
+    transition: background 0.3s;
+  }
+
+  .prev { left: 15px; }
+  .next { right: 15px; }
+
+  .prev:hover, .next:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+      document.querySelector(".slider").style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateSlide();
+    }
+
+    // Auto Slide with Pause on Hover
+    let slideInterval = setInterval(nextSlide, 3000);
+    
+    document.querySelector(".slider-container").addEventListener("mouseenter", () => {
+      clearInterval(slideInterval);
+    });
+
+    document.querySelector(".slider-container").addEventListener("mouseleave", () => {
+      slideInterval = setInterval(nextSlide, 3000);
+    });
+  });
+</script>
