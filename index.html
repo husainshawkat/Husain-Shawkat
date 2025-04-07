@@ -1,167 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Husain Shawkat | Photographer</title>
-  <link rel="icon" type="img/20250320_045144.png" href="favicon.png">
+  <link rel="icon" href="favicon.png">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <style>
-    /* Floating Contact Button */
     .floating-contact {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #25D366;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 50%;
-        font-size: 24px;
-        font-weight: bold;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        transition: 0.3s ease-in-out;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: 0.3s ease-in-out;
     }
-
     .floating-contact:hover {
-        background: #1EBE57;
-        transform: scale(1.1);
+      background: #1EBE57;
+      transform: scale(1.1);
     }
-
     .hero-section {
-        background-image: url('img/expansion_20240513073620280.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+      background-image: url('img/expansion_20240513073620280.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .slider {
+      position: relative;
+      max-width: 100%;
+      height: 450px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      opacity: 1;
     }
   </style>
 </head>
-<body class="m-0 p-0">
-
-<!-- Navbar -->
-<header class="w-full bg-gray-800 fixed top-0 z-50 shadow-md">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
-    <!-- PNG Logo and Text Logo -->
+<body class="m-0 p-0 bg-gray-900 text-white"><!-- Navbar --><header class="w-full bg-gray-800 fixed top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
     <div class="flex items-center space-x-3">
-      <!-- PNG Logo -->
       <img src="img/20250320_045144.png" alt="Logo" class="w-10 h-10">
-      <!-- Text Logo -->
-      <div class="text-2xl font-bold text-white hover:text-green-500">
-        Husain Shawkat
+      <div class="text-2xl font-bold text-white hover:text-green-500">Husain Shawkat</div>
+    </div>
+    <div class="relative" x-data="{ open: false }">
+      <button @click="open = !open" class="p-3 bg-gray-700 text-white rounded-full hover:bg-gray-600">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+      <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-40 bg-gray-800 rounded-lg shadow-lg text-white z-50">
+        <a href="#about" class="block px-4 py-2 hover:bg-gray-700">About</a>
+        <a href="contact.html" class="block px-4 py-2 hover:bg-gray-700">Contact</a>
+        <a href="https://t.me/PremiumAppAccount" target="_blank" class="block px-4 py-2 hover:bg-gray-700">Telegram</a>
       </div>
     </div>
   </div>
-</header>
-      <!-- Navigation Links -->
-     <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-gray-900 flex justify-center items-center h-screen">
-    <div class="relative" x-data="{ open: false }">
-        <button @click="open = !open" class="p-3 bg-gray-700 text-white rounded-full hover:bg-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h18M3 18h18"></path>
-            </svg>
-        </button>
-
-        <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-40 bg-gray-800 rounded-lg shadow-lg text-white">
-            <a href="#about" class="flex items-center px-4 py-2 hover:bg-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 4h.01"></path>
-                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
-                </svg>
-                About
-            </a>
-            <a href="contact.html" class="flex items-center px-4 py-2 hover:bg-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.25v10.5a2.25 2.25 0 002.25 2.25h13.5A2.25 2.25 0 0021 18.75V8.25m-18 0L12 3l9 5.25m-18 0L12 14.25 21 8.25"></path>
-                </svg>
-                Contact
-            </a>
-            <a href="https://t.me/PremiumAppAccount" target="_blank" class="flex items-center px-4 py-2 hover:bg-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 3.75L2.25 12l7.5 3 1.5 4.5 3-3 4.5 3 3-15z"></path>
-                </svg>
-                Telegram
-            </a>
-        </div>
-    </div>
-</body>
-</html>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="h-screen hero-section relative">
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-
-    <!-- Content -->
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
-      <h1 class="text-5xl font-bold">Welcome</h1>
-      <h2 class="text-4xl mt-4">
-        I'm <span class="text-green-500"><a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-green-500">Husain Shawkat</a></span>
-      </h2>
-      <p class="text-2xl mt-2">Photographer & Editor</p>
-      <a href="Photography.html" class="mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 rounded text-white font-semibold">Explore My Photography</a>
-      <!-- Floating Contact Button -->
-      <a href="contact.html" class="floating-contact">
-          <i class="fas fa-comments"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-12 bg-gray-100">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center text-gray-800">About Me</h2>
-      <p class="text-center text-gray-600 mt-4">Photography is my hobby, and I love to capture moments that tell a story.</p>
-      <div class="flex flex-col md:flex-row items-center mt-10">
-        <!-- Profile Image -->
-        <div class="relative">
-          <div class="absolute inset-0 transform translate-x-4 translate-y-4 border-4 border-green-500 rounded-lg"></div>
-          <img src="img/20250306_120722.jpg" alt="Profile Image" class="relative w-80 h-80 rounded-lg shadow-md mx-auto">
-        </div>
-        <!-- About Content -->
-        <div class="mt-10 flex flex-col items-center text-center">
-          <h3 class="text-2xl font-semibold text-gray-800">Husain Shawkat</h3>
-          <p class="text-gray-600 mt-4">
-            I capture moments that inspire and connect nature.
-          </p>
-          <ul class="mt-6 space-y-2">
-            <li><span class="text-green-500">●</span> From: <span class="font-semibold text-gray-800">Kurigram, BD</span></li>
-            <li><span class="text-green-500">●</span> Lives In: <span class="font-semibold text-gray-800">Rangpur, BD</span></li>
-            <li><span class="text-green-500">●</span> Age: <span class="font-semibold text-gray-800">19</span></li>
-            <li><span class="text-green-500">●</span> Gender: <span class="font-semibold text-gray-800">Male</span></li>
-          </ul>
-        </div>
+</header><!-- Hero Section --><section class="h-screen hero-section relative">
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+    <h1 class="text-5xl font-bold">Welcome</h1>
+    <h2 class="text-4xl mt-4">
+      I'm <span class="text-green-500"><a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-green-500">Husain Shawkat</a></span>
+    </h2>
+    <p class="text-2xl mt-2">Photographer & Editor</p>
+    <a href="Photography.html" class="mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 rounded text-white font-semibold">Explore My Photography</a>
+    <a href="contact.html" class="floating-contact">
+      <i class="fas fa-comments"></i>
+    </a>
+  </div>
+</section><!-- About Section --><section id="about" class="py-12 bg-gray-100 text-gray-800">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center">About Me</h2>
+    <p class="text-center text-gray-600 mt-4">Photography is my hobby, and I love to capture moments that tell a story.</p>
+    <div class="flex flex-col md:flex-row items-center mt-10">
+      <div class="relative">
+        <div class="absolute inset-0 transform translate-x-4 translate-y-4 border-4 border-green-500 rounded-lg"></div>
+        <img src="img/20250306_120722.jpg" alt="Profile Image" class="relative w-80 h-80 rounded-lg shadow-md mx-auto">
+      </div>
+      <div class="mt-10 flex flex-col items-center text-center md:ml-10">
+        <h3 class="text-2xl font-semibold">Husain Shawkat</h3>
+        <p class="text-gray-600 mt-4">I capture moments that inspire and connect nature.</p>
+        <ul class="mt-6 space-y-2">
+          <li><span class="text-green-500">●</span> From: <span class="font-semibold">Kurigram, BD</span></li>
+          <li><span class="text-green-500">●</span> Lives In: <span class="font-semibold">Rangpur, BD</span></li>
+          <li><span class="text-green-500">●</span> Age: <span class="font-semibold">19</span></li>
+          <li><span class="text-green-500">●</span> Gender: <span class="font-semibold">Male</span></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-
-<!-- Image Slider -->
-<section id="photography" class="py-12 bg-gray-900">
+  </div>
+</section><!-- Image Slider --><section id="photography" class="py-12 bg-gray-900">
   <div class="max-w-5xl mx-auto px-4">
     <h2 class="text-4xl font-bold text-center text-white">Photo Gallery</h2>
-    <p class="text-center text-gray-300 mt-4">
-      Some of my best photography collections.
-    </p>
+    <p class="text-center text-gray-300 mt-4">Some of my best photography collections.</p>
     <div class="relative w-full mt-8">
       <div class="slider">
         <img src="PG/retouch_2025022217325575.jpg" class="slide">
@@ -172,106 +120,38 @@
       </div>
     </div>
   </div>
-</section>
-
-<style>
-  .slider {
-    position: relative;
-    max-width: 100%;
-    height: 450px;
-    overflow: hidden;
-  }
-
-  .slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-  }
-
-  .slide.active {
-    opacity: 1;
-  }
-</style>
-
-<script>
+</section><!-- Contact Section --><section id="contact" class="py-16 bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <h2 class="text-4xl font-extrabold text-white leading-tight">Get In Touch</h2>
+    <p class="text-gray-300 mt-4 text-lg md:w-2/3 mx-auto">Reach out to me via email, and let’s connect!</p>
+    <div class="mt-8">
+      <a href="mailto:husainshawkat@yahoo.com" class="bg-gradient-to-r from-pink-500 to-yellow-500 text-white py-3 px-8 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">Email</a>
+    </div>
+  </div>
+</section><!-- Footer --><footer class="bg-gray-900 py-12 text-center text-white">
+  <div class="max-w-7xl mx-auto px-4">
+    <h3 class="text-2xl font-semibold text-green-500 mb-4">Follow Me</h3>
+    <div class="flex justify-center space-x-6">
+      <a href="https://www.instagram.com/husain_shawkat" class="text-gray-400 hover:text-green-500 text-3xl"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/husainshawkat.sh" class="text-gray-400 hover:text-green-500 text-3xl"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com/HusainShawkat" class="text-gray-400 hover:text-green-500 text-3xl"><i class="fab fa-twitter"></i></a>
+      <a href="https://wa.me/+8801521751139" class="text-gray-400 hover:text-green-500 text-3xl"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/husain_shawkat" class="text-gray-400 hover:text-green-500 text-3xl"><i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="mt-8 text-gray-500 text-sm">
+      <p>Copyright ©2025. All rights reserved | <a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-green-500">Husain Shawkat</a></p>
+      <p class="mt-2">Designed by <a href="https://www.facebook.com/husainshawkat.sh" class="text-green-500 hover:text-green-400">Husain Shawkat</a></p>
+    </div>
+  </div>
+</footer><script>
   let currentSlide = 0;
   const slides = document.querySelectorAll(".slide");
-
   function nextSlide() {
-    // Remove active class from current slide
     slides[currentSlide].classList.remove("active");
-    
-    // Calculate next slide index
     currentSlide = (currentSlide + 1) % slides.length;
-    
-    // Add active class to next slide
     slides[currentSlide].classList.add("active");
   }
-
-  // Initialize first slide
   slides[currentSlide].classList.add("active");
-
-  // Start slider
   setInterval(nextSlide, 3000);
-</script>
-
-
-</script>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <h2 class="text-4xl font-extrabold text-white leading-tight">Get In Touch</h2>
-      <p class="text-gray-300 mt-4 text-lg md:w-2/3 mx-auto">
-        Reach out to me via email, and let’s connect!
-      </p>
-      <div class="mt-8">
-        <a href="mailto:husainshawkat@yahoo.com" 
-           class="bg-gradient-to-r from-pink-500 to-yellow-500 text-white py-3 px-8 rounded-full text-xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-          Email
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 py-12 text-center text-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div>
-        <h3 class="text-2xl font-semibold text-green-500 mb-4">Follow Me</h3>
-        <div class="flex justify-center space-x-6">
-          <a href="https://www.instagram.com/husain_shawkat" class="text-gray-400 hover:text-green-500 text-3xl transition duration-300">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://www.facebook.com/husainshawkat.sh" class="text-gray-400 hover:text-green-500 text-3xl transition duration-300">
-            <i class="fab fa-facebook"></i>
-          </a>
-          <a href="https://twitter.com/HusainShawkat" class="text-gray-400 hover:text-green-500 text-3xl transition duration-300">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="https://wa.me/+8801521751139" class="text-gray-400 hover:text-green-500 text-3xl transition duration-300">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          <a href="https://t.me/husain_shawkat" class="text-gray-400 hover:text-green-500 text-3xl transition duration-300">
-            <i class="fab fa-telegram"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="mt-8 text-center text-gray-500 text-sm">
-        <p>
-          Copyright ©2025. All rights reserved |
-          <a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-green-500">Husain Shawkat</a>
-        </p>
-      </div>
-      <p class="mt-2">
-        Designed by <a href="https://www.facebook.com/husainshawkat.sh" class="text-green-500 hover:text-green-400">Husain Shawkat</a>
-      </p>
-    </div>
-  </footer>
-
-</body>
+</script></body>
 </html>
