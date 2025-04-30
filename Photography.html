@@ -1,78 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Husain Shawkat's Photo Gallery</title>
   <style>
     :root {
-      --primary-color: rgba(255, 255, 255, 0.9);
-      --secondary-color: rgba(255, 255, 255, 0.6);
+      --primary-color: #ffffff;
+      --secondary-color: #cccccc;
+      --accent-color: #1e90ff;
+      --bg-color: #0a0a0a;
+      --btn-bg: linear-gradient(135deg, #00c6ff, #0072ff);
+      --btn-hover-bg: linear-gradient(135deg, #0072ff, #00c6ff);
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0a0a0a;
-      color: white;
       margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: var(--primary-color);
+      padding: 40px 20px;
+      text-align: center;
     }
 
     .gallery-container {
       max-width: 1200px;
       margin: auto;
-      text-align: center;
+      padding: 20px;
     }
 
     h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
+      margin-bottom: 10px;
     }
 
     p {
-      color: #ccc;
-      margin-bottom: 1rem;
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
     }
 
-    /* Gallery Grid */
     .gallery {
       display: grid;
-      gap: 15px;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    .gallery img {
+    .photo-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    }
+
+    .img-wrapper {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .photo-card img {
       width: 100%;
       height: auto;
-      border-radius: 8px;
-      object-fit: cover;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      object-fit: contain;
+      border-radius: 10px;
     }
 
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.2);
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .buttons button {
+      background: var(--btn-bg);
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 183, 255, 0.4);
+      transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .buttons button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 183, 255, 0.6);
+      background: var(--btn-hover-bg);
+    }
+
+    .buttons svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Responsive Image Grid */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="gallery-container">
-  <h2>Photo Gallery</h2>
-  <p>All my best photography collections in one place.</p>
-
-  <div class="gallery">
-    <img src="PG/retouch_2025022217325575.jpg" alt="Photo 1">
-    <img src="PG/1741444570626.jpg" alt="Photo 2">
-    <img src="PG/1000050875.jpg" alt="Photo 3">
-    <img src="PG/1000050868.jpg" alt="Photo 4">
-    <img src="PG/1000058323 (1).jpg" alt="Photo 5">
-    <img src="PG/IMG_20250414_130233.jpg" alt="Photo 6">
-    <img src="PG/IMG_20250418_182358.jpg" alt="Photo 7">
-    <img src="PG/IMG_20250423_170912.jpg" alt="Photo 8">
-    <img src="PG/IMG_20250425_170542.jpg" alt="Photo 9">
-    <img src="PG/Sh20241013_164532772himel.PORTRAIT.jpg" alt="Photo 10">
+  <div class="gallery-container">
+    <h2>Photo Gallery</h2>
+    <p>Explore my best photography collections, captured through unique lenses.</p>
+    <div class="gallery" id="gallery"></div>
   </div>
-</div>
 
+  <script>
+    const photos = [
+      "PG/retouch_2025022217325575.jpg",
+      "PG/1741444570626.jpg",
+      "PG/1000050875.jpg",
+      "PG/1000050868.jpg",
+      "PG/1000058323 (1).jpg",
+      "PG/IMG_20250414_130233.jpg",
+      "PG/IMG_20250418_182358.jpg",
+      "PG/IMG_20250423_170912.jpg",
+      "PG/IMG_20250425_170542.jpg",
+      "PG/Sh20241013_164532772himel.PORTRAIT.jpg"
+    ];
+
+    const gallery = document.getElementById("gallery");
+
+    photos.forEach((photo, index) => {
+      const card = document.createElement("div");
+      card.className = "photo-card";
+
+      card.innerHTML = `
+        <div class="img-wrapper">
+          <img src="${photo}" alt="Photo ${index + 1}" />
+        </div>
+        <div class="buttons">
+          <button onclick="downloadImage('${photo}')">
+            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v4h4.66v-4h3.84L12 2z"/></svg>
+            Download
+          </button>
+          <button onclick="copyLink('${photo}')">
+            <svg viewBox="0 0 24 24"><path d="M3.9,12A5.1,5.1,0,0,1,9,6.9h3v2H9A3.1,3.1,0,0,0,5.9,12,3.1,3.1,0,0,0,9,15.1h3v2H9A5.1,5.1,0,0,1,3.9,12Zm5-1h7v2H8.9V11Zm7-4h-3V5h3a5.1,5.1,0,0,1,0,10h-3V13h3a3.1,3.1,0,0,0,0-6Z"/></svg>
+            Copy Link
+          </button>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+
+    function downloadImage(path) {
+      const link = document.createElement('a');
+      link.href = path;
+      link.setAttribute('download', '');
+      link.setAttribute('target', '_blank');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function copyLink(path) {
+      const fullUrl = window.location.origin + '/' + path;
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        alert("Link copied: " + fullUrl);
+      });
+    }
+  </script>
 </body>
 </html>
