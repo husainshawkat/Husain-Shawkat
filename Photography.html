@@ -10,6 +10,7 @@
       --primary-color: rgba(255, 255, 255, 0.9);
       --secondary-color: rgba(255, 255, 255, 0.6);
       --accent-color: #1e90ff;
+      --green-accent: #10B981;
     }
 
     body {
@@ -23,20 +24,13 @@
       flex-direction: column;
     }
 
-    /* Navigation */
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    /* Header with Logo */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      gap: 15px;
     }
 
     .logo {
@@ -44,21 +38,13 @@
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
-    }
-
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 600;
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      border: 2px solid var(--green-accent);
     }
 
     .gallery-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 20px;
       text-align: center;
       flex: 1;
     }
@@ -205,7 +191,7 @@
     footer h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #10B981;
+      color: var(--green-accent);
       margin-bottom: 1rem;
     }
 
@@ -223,7 +209,7 @@
     }
 
     .social-links a:hover {
-      color: #10B981;
+      color: var(--green-accent);
     }
 
     .copyright {
@@ -232,7 +218,7 @@
     }
 
     .copyright a {
-      color: #10B981;
+      color: var(--green-accent);
       transition: color 0.3s;
     }
 
@@ -284,28 +270,20 @@
       .social-links {
         flex-wrap: wrap;
       }
-
-      .logo-text {
-        font-size: 1.2rem;
-      }
-
-      .logo {
-        width: 32px;
-        height: 32px;
+      
+      .header {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-container">
-      <div class="logo-container">
-        <img src="img/20250320_045144.png" alt="Logo" class="logo">
-        <span class="logo-text">Husain Shawkat</span>
-      </div>
-    </div>
-  </nav>
+  <!-- Header with Logo -->
+  <div class="header">
+    <img src="img/20250320_045144.png" alt="Husain Shawkat Logo" class="logo">
+    <h1>Husain Shawkat</h1>
+  </div>
 
   <!-- Gallery Content -->
   <div class="gallery-container">
