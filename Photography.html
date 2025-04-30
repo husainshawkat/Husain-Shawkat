@@ -19,6 +19,40 @@
       padding: 0;
       min-height: 100vh;
       color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation */
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .gallery-container {
@@ -26,6 +60,7 @@
       margin: 0 auto;
       padding: 40px 20px;
       text-align: center;
+      flex: 1;
     }
 
     h2 {
@@ -159,352 +194,50 @@
       opacity: 1;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      h2 {
-        font-size: 2.2rem;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-container {
-        padding: 30px 15px;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-      
-      .subtitle {
-        font-size: 1rem;
-      }
-      
-      .photo-actions {
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Gallery Content -->
-  <div class="gallery-container">
-    <h2>Husain Shawkat's Gallery</h2>
-    <p class="subtitle">A collection of my finest photographic moments, captured with passion and precision.</p>
-
-    <div class="gallery" id="gallery">
-      <!-- Photos will be inserted here by JavaScript -->
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">
-    <i class="fas fa-check-circle"></i>
-    <span id="toast-message">Link copied to clipboard!</span>
-  </div>
-
-  <script>
-    // Photo data with titles and dates
-    const photos = [
-      {
-        src: "PG/retouch_2025022217325575.jpg",
-        title: "Urban Landscape",
-        date: "February 22, 2025"
-      },
-      {
-        src: "PG/1741444570626.jpg",
-        title: "Mountain Sunrise",
-        date: "June 14, 2024"
-      },
-      {
-        src: "PG/1000050875.jpg",
-        title: "Coastal Sunset",
-        date: "August 5, 2023"
-      },
-      {
-        src: "PG/1000050868.jpg",
-        title: "Forest Pathway",
-        date: "August 5, 2023"
-      },
-      {
-        src: "PG/1000058323 (1).jpg",
-        title: "Architectural Detail",
-        date: "September 12, 2023"
-      },
-      {
-        src: "PG/IMG_20250414_130233.jpg",
-        title: "Street Photography",
-        date: "April 14, 2025"
-      },
-      {
-        src: "PG/IMG_20250418_182358.jpg",
-        title: "Golden Hour Portrait",
-        date: "April 18, 2025"
-      },
-      {
-        src: "PG/IMG_20250423_170912.jpg",
-        title: "Nature's Beauty",
-        date: "April 23, 2025"
-      },
-      {
-        src: "PG/IMG_20250425_170542.jpg",
-        title: "Urban Exploration",
-        date: "April 25, 2025"
-      },
-      {
-        src: "PG/Sh20241013_164532772himel.PORTRAIT.jpg",
-        title: "Portrait Study",
-        date: "October 13, 2024"
-      }
-    ];
-
-    const gallery = document.getElementById('gallery');
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-
-    // Create gallery items
-    photos.forEach(photo => {
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      
-      card.innerHTML = `
-        <div class="img-container">
-          <img src="${photo.src}" alt="${photo.title}" loading="lazy">
-        </div>
-        <div class="photo-info">
-          <div class="photo-title">${photo.title}</div>
-          <div class="photo-date">${photo.date}</div>
-          <div class="photo-actions">
-            <button class="action-btn" onclick="downloadPhoto('${photo.src}', '${photo.title.replace(/\s+/g, '_')}')">
-              <i class="fas fa-download"></i> Download
-            </button>
-            <button class="action-btn" onclick="sharePhoto('${photo.src}', '${photo.title}')">
-              <i class="fas fa-share"></i> Share
-            </button>
-          </div>
-        </div>
-      `;
-      
-      gallery.appendChild(card);
-    });
-
-    // Download photo function
-    function downloadPhoto(url, filename) {
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', filename || 'photo');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // Share photo function
-    function sharePhoto(url, title) {
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          url: url
-        }).catch(err => {
-          copyToClipboard(url);
-        });
-      } else {
-        copyToClipboard(url);
-      }
-    }
-
-    // Copy to clipboard
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast('Link copied to clipboard!');
-      }).catch(err => {
-        console.error('Could not copy text: ', err);
-        showToast('Failed to copy link');
-      });
-    }
-
-    // Show toast notification
-    function showToast(message) {
-      toastMessage.textContent = message;
-      toast.classList.add('show');
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    // Adjust image containers to maintain aspect ratio
-    document.querySelectorAll('.img-container').forEach(container => {
-      const img = container.querySelector('img');
-      img.onload = function() {
-        const ratio = this.naturalWidth / this.naturalHeight;
-        container.style.height = `${container.offsetWidth / ratio}px`;
-      };
-    });
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Husain Shawkat's Photo Gallery</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: rgba(255, 255, 255, 0.9);
-      --secondary-color: rgba(255, 255, 255, 0.6);
-      --accent-color: #1e90ff;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      color: white;
-    }
-
-    .gallery-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
+    /* Footer */
+    footer {
+      background: #111827;
+      padding: 3rem 1rem;
       text-align: center;
+      margin-top: auto;
     }
 
-    h2 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    footer h3 {
+      font-size: 1.5rem;
       font-weight: 600;
+      color: #10B981;
+      margin-bottom: 1rem;
     }
 
-    .subtitle {
-      color: var(--secondary-color);
-      font-size: 1.1rem;
-      margin-bottom: 40px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
-    /* Gallery Grid */
-    .gallery {
-      display: grid;
-      gap: 25px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .photo-card {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .photo-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(0, 114, 255, 0.3);
-      border-color: rgba(0, 198, 255, 0.3);
-    }
-
-    .img-container {
-      width: 100%;
-      height: 250px;
-      overflow: hidden;
-    }
-
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .photo-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .photo-info {
-      padding: 15px;
-      text-align: left;
-    }
-
-    .photo-title {
-      font-weight: 600;
-      margin-bottom: 5px;
-      font-size: 1rem;
-    }
-
-    .photo-date {
-      color: var(--secondary-color);
-      font-size: 0.85rem;
-      margin-bottom: 15px;
-    }
-
-    .photo-actions {
+    .social-links {
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .action-btn {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
-    .action-btn:hover {
-      background: rgba(0, 198, 255, 0.2);
+    .social-links a {
+      color: #9CA3AF;
+      font-size: 1.5rem;
+      transition: color 0.3s;
     }
 
-    .action-btn i {
-      font-size: 0.9rem;
+    .social-links a:hover {
+      color: #10B981;
     }
 
-    /* Toast notification */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1000;
+    .copyright {
+      color: #6B7280;
+      font-size: 0.875rem;
     }
 
-    .toast.show {
-      opacity: 1;
+    .copyright a {
+      color: #10B981;
+      transition: color 0.3s;
+    }
+
+    .copyright a:hover {
+      color: #34D399;
     }
 
     /* Responsive Design */
@@ -516,6 +249,18 @@
       .gallery {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 20px;
+      }
+
+      footer h3 {
+        font-size: 1.25rem;
+      }
+
+      .social-links {
+        gap: 1rem;
+      }
+
+      .social-links a {
+        font-size: 1.25rem;
       }
     }
 
@@ -535,19 +280,58 @@
       .photo-actions {
         flex-direction: column;
       }
+
+      .social-links {
+        flex-wrap: wrap;
+      }
+
+      .logo-text {
+        font-size: 1.2rem;
+      }
+
+      .logo {
+        width: 32px;
+        height: 32px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo-container">
+        <img src="img/20250320_045144.png" alt="Logo" class="logo">
+        <span class="logo-text">Husain Shawkat</span>
+      </div>
+    </div>
+  </nav>
+
   <!-- Gallery Content -->
   <div class="gallery-container">
-    <h2>Husain Shawkat's Gallery</h2>
+    <h2>Photo Gallery</h2>
     <p class="subtitle">A collection of my finest photographic moments, captured with passion and precision.</p>
 
     <div class="gallery" id="gallery">
       <!-- Photos will be inserted here by JavaScript -->
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <h3>Follow Me</h3>
+    <div class="social-links">
+      <a href="https://www.instagram.com/husain_shawkat" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/husainshawkat.sh" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com/HusainShawkat" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://wa.me/+8801521751139" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/husain_shawkat" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="copyright">
+      <p>Copyright ©2025. All rights reserved | <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
+      <p class="mt-2">Designed by <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
+    </div>
+  </footer>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast">
