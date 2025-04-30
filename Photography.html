@@ -47,7 +47,6 @@
     }
 
     .photo-card {
-      position: relative;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 15px;
@@ -56,8 +55,8 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
-      backdrop-filter: blur(10px);
       align-items: center;
+      backdrop-filter: blur(10px);
     }
 
     .photo-card:hover {
@@ -65,60 +64,51 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
     }
 
-    .img-wrapper {
-      width: 100%;
-      height: 0;
-      padding-bottom: 75%; /* Maintain aspect ratio */
-      position: relative;
-    }
-
     .photo-card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      position: absolute;
-      top: 0;
-      left: 0;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 10px 10px 0 0;
     }
 
     .buttons {
       display: flex;
-      justify-content: space-around;
-      gap: 15px;
-      padding: 5px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
       width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .buttons button {
       background: var(--btn-bg);
       color: white;
       border: none;
-      padding: 8px 15px;  /* Smaller padding for smaller buttons */
-      border-radius: 25px;
-      font-size: 1rem;  /* Smaller font size */
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;  /* Reduced gap */
-      box-shadow: 0 4px 15px rgba(0, 183, 255, 0.4);
-      transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0, 183, 255, 0.4);
+      transition: 0.3s;
     }
 
     .buttons button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 183, 255, 0.6);
       background: var(--btn-hover-bg);
+      box-shadow: 0 6px 18px rgba(0, 183, 255, 0.6);
     }
 
     .buttons svg {
-      width: 16px; /* Smaller icon size */
-      height: 16px; /* Smaller icon size */
+      width: 14px;
+      height: 14px;
       fill: white;
     }
 
-    /* Responsive Image Grid */
     @media (max-width: 768px) {
       .gallery {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -155,9 +145,7 @@
       card.className = "photo-card";
 
       card.innerHTML = `
-        <div class="img-wrapper">
-          <img src="${photo}" alt="Photo ${index + 1}" />
-        </div>
+        <img src="${photo}" alt="Photo ${index + 1}" />
         <div class="buttons">
           <button onclick="downloadImage('${photo}')">
             <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v4h4.66v-4h3.84L12 2z"/></svg>
