@@ -57,6 +57,7 @@
       display: flex;
       flex-direction: column;
       backdrop-filter: blur(10px);
+      align-items: center;
     }
 
     .photo-card:hover {
@@ -66,35 +67,41 @@
 
     .img-wrapper {
       width: 100%;
-      padding: 10px;
+      height: 0;
+      padding-bottom: 75%; /* Maintain aspect ratio */
+      position: relative;
     }
 
     .photo-card img {
       width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: 100%;
+      object-fit: cover;
       border-radius: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
     .buttons {
       display: flex;
       justify-content: space-around;
       gap: 15px;
-      padding: 10px 0;
+      padding: 5px 0;
       border-top: 1px solid rgba(255, 255, 255, 0.2);
+      width: 100%;
     }
 
     .buttons button {
       background: var(--btn-bg);
       color: white;
       border: none;
-      padding: 15px 25px;
-      border-radius: 30px;
-      font-size: 1.1rem;
+      padding: 8px 15px;  /* Smaller padding for smaller buttons */
+      border-radius: 25px;
+      font-size: 1rem;  /* Smaller font size */
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;  /* Reduced gap */
       box-shadow: 0 4px 15px rgba(0, 183, 255, 0.4);
       transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
     }
@@ -106,8 +113,8 @@
     }
 
     .buttons svg {
-      width: 20px;
-      height: 20px;
+      width: 16px; /* Smaller icon size */
+      height: 16px; /* Smaller icon size */
       fill: white;
     }
 
