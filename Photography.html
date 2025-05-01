@@ -11,9 +11,6 @@
       --secondary-color: rgba(255, 255, 255, 0.6);
       --accent-color: #1e90ff;
       --green-accent: #10B981;
-      --red-accent: #EF4444;
-      --pink-accent: #EC4899;
-      --yellow-accent: #F59E0B;
     }
 
     body {
@@ -134,7 +131,6 @@
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 10px;
     }
 
     .action-btn {
@@ -159,132 +155,6 @@
 
     .action-btn i {
       font-size: 0.9rem;
-    }
-
-    /* React buttons */
-    .react-buttons {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 10px;
-    }
-
-    .react-btn {
-      background: transparent;
-      border: none;
-      color: var(--secondary-color);
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      padding: 5px;
-      border-radius: 50%;
-    }
-
-    .react-btn:hover {
-      transform: scale(1.2);
-    }
-
-    .react-btn.like:hover {
-      color: var(--accent-color);
-    }
-
-    .react-btn.love:hover {
-      color: var(--red-accent);
-    }
-
-    .react-btn.haha:hover {
-      color: var(--yellow-accent);
-    }
-
-    .react-btn.active {
-      transform: scale(1.2);
-    }
-
-    .react-btn.like.active {
-      color: var(--accent-color);
-    }
-
-    .react-btn.love.active {
-      color: var(--red-accent);
-    }
-
-    .react-btn.haha.active {
-      color: var(--yellow-accent);
-    }
-
-    /* Comment section */
-    .comment-section {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-
-    .comment-section.expanded {
-      max-height: 300px;
-      padding: 10px;
-    }
-
-    .comments-list {
-      max-height: 150px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      padding-right: 5px;
-    }
-
-    .comment {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 8px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      font-size: 0.85rem;
-    }
-
-    .comment-form {
-      display: flex;
-      gap: 8px;
-    }
-
-    .comment-input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 6px;
-      padding: 8px;
-      color: white;
-      font-size: 0.85rem;
-    }
-
-    .comment-submit {
-      background: var(--green-accent);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 0 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .comment-submit:hover {
-      background: #059669;
-    }
-
-    .toggle-comments {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: none;
-      color: var(--secondary-color);
-      padding: 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      margin-top: 5px;
-      transition: all 0.2s;
-    }
-
-    .toggle-comments:hover {
-      background: rgba(255, 255, 255, 0.1);
     }
 
     /* Toast notification */
@@ -437,7 +307,7 @@
     </div>
     <div class="copyright">
       <p>Copyright ©2025. All rights reserved | <a href="https://www.facebook.com/himelography.sh">HimeloGraphy</a></p>
-      <p class="mt-2">Property of <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
+      <p class="mt-2">Property of   <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
     </div>
   </footer>
 
@@ -506,22 +376,10 @@
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toast-message');
 
-    // Initialize localStorage for reactions and comments if not exists
-    if (!localStorage.getItem('photoReactions')) {
-      localStorage.setItem('photoReactions', JSON.stringify({}));
-    }
-    if (!localStorage.getItem('photoComments')) {
-      localStorage.setItem('photoComments', JSON.stringify({}));
-    }
-
     // Create gallery items
-    photos.forEach((photo, index) => {
+    photos.forEach(photo => {
       const card = document.createElement('div');
       card.className = 'photo-card';
-      
-      // Get reactions and comments from localStorage
-      const reactions = JSON.parse(localStorage.getItem('photoReactions'))[index] || {};
-      const comments = JSON.parse(localStorage.getItem('photoComments'))[index] || [];
       
       card.innerHTML = `
         <div class="img-container">
@@ -530,20 +388,6 @@
         <div class="photo-info">
           <div class="photo-title">${photo.title}</div>
           <div class="photo-date">${photo.date}</div>
-          
-          <!-- React buttons -->
-          <div class="react-buttons">
-            <button class="react-btn like ${reactions.like ? 'active' : ''}" data-photo-index="${index}" data-reaction="like">
-              <i class="fas fa-thumbs-up"></i>
-            </button>
-            <button class="react-btn love ${reactions.love ? 'active' : ''}" data-photo-index="${index}" data-reaction="love">
-              <i class="fas fa-heart"></i>
-            </button>
-            <button class="react-btn haha ${reactions.haha ? 'active' : ''}" data-photo-index="${index}" data-reaction="haha">
-              <i class="fas fa-laugh-squint"></i>
-            </button>
-          </div>
-          
           <div class="photo-actions">
             <button class="action-btn" onclick="downloadPhoto('${photo.src}', '${photo.title.replace(/\s+/g, '_')}')">
               <i class="fas fa-download"></i> Download
@@ -552,105 +396,10 @@
               <i class="fas fa-share"></i> Share
             </button>
           </div>
-          
-          <!-- Comment section -->
-          <button class="toggle-comments" data-photo-index="${index}">
-            <i class="fas fa-comment"></i> Comments (${comments.length})
-          </button>
-          <div class="comment-section" data-photo-index="${index}">
-            <div class="comments-list" id="comments-${index}">
-              ${comments.map(comment => `<div class="comment">${comment}</div>`).join('')}
-            </div>
-            <form class="comment-form" data-photo-index="${index}">
-              <input type="text" class="comment-input" placeholder="Add a comment..." required>
-              <button type="submit" class="comment-submit">Post</button>
-            </form>
-          </div>
         </div>
       `;
       
       gallery.appendChild(card);
-    });
-
-    // Add event listeners for react buttons
-    document.querySelectorAll('.react-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const photoIndex = this.getAttribute('data-photo-index');
-        const reaction = this.getAttribute('data-reaction');
-        
-        // Toggle reaction
-        const reactions = JSON.parse(localStorage.getItem('photoReactions'));
-        if (!reactions[photoIndex]) {
-          reactions[photoIndex] = {};
-        }
-        
-        // Toggle the specific reaction
-        const isActive = !reactions[photoIndex][reaction];
-        reactions[photoIndex][reaction] = isActive;
-        
-        // Save to localStorage
-        localStorage.setItem('photoReactions', JSON.stringify(reactions));
-        
-        // Update UI
-        this.classList.toggle('active', isActive);
-        
-        // Show toast
-        showToast(isActive ? `Reacted with ${reaction}!` : `Removed ${reaction} reaction`);
-      });
-    });
-
-    // Toggle comment sections
-    document.querySelectorAll('.toggle-comments').forEach(button => {
-      button.addEventListener('click', function() {
-        const photoIndex = this.getAttribute('data-photo-index');
-        const commentSection = document.querySelector(`.comment-section[data-photo-index="${photoIndex}"]`);
-        commentSection.classList.toggle('expanded');
-        
-        // Update button text
-        const comments = JSON.parse(localStorage.getItem('photoComments'))[photoIndex] || [];
-        this.innerHTML = commentSection.classList.contains('expanded') ? 
-          `<i class="fas fa-times"></i> Close comments` : 
-          `<i class="fas fa-comment"></i> Comments (${comments.length})`;
-      });
-    });
-
-    // Handle comment submission
-    document.querySelectorAll('.comment-form').forEach(form => {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const photoIndex = this.getAttribute('data-photo-index');
-        const commentInput = this.querySelector('.comment-input');
-        const commentText = commentInput.value.trim();
-        
-        if (commentText) {
-          // Get existing comments
-          const comments = JSON.parse(localStorage.getItem('photoComments'));
-          if (!comments[photoIndex]) {
-            comments[photoIndex] = [];
-          }
-          
-          // Add new comment
-          comments[photoIndex].push(commentText);
-          localStorage.setItem('photoComments', JSON.stringify(comments));
-          
-          // Update UI
-          const commentsList = document.getElementById(`comments-${photoIndex}`);
-          const newComment = document.createElement('div');
-          newComment.className = 'comment';
-          newComment.textContent = commentText;
-          commentsList.appendChild(newComment);
-          
-          // Update comment count in toggle button
-          const toggleButton = document.querySelector(`.toggle-comments[data-photo-index="${photoIndex}"]`);
-          toggleButton.innerHTML = `<i class="fas fa-comment"></i> Comments (${comments[photoIndex].length})`;
-          
-          // Clear input
-          commentInput.value = '';
-          
-          // Show toast
-          showToast('Comment added!');
-        }
-      });
     });
 
     // Download photo function
@@ -707,4 +456,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
