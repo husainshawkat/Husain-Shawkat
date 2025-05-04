@@ -12,7 +12,7 @@
       --accent-color: #1e90ff;
       --green-accent: #10B981;
     }
-
+    
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -67,6 +67,26 @@
       margin-left: auto;
       margin-right: auto;
       line-height: 1.6;
+    }
+
+    /* Download Terms Button */
+    .download-terms-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.2);
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 30px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(16,185,129,0.3);
+    }
+
+    .download-terms-btn:hover {
+      background: rgba(16,185,129,0.3);
     }
 
     /* Gallery Grid */
@@ -287,9 +307,11 @@
 
   <!-- Gallery Content -->
   <div class="gallery-container">
-    <h2>HimeloGraphy's Gallery</h2>
-    <p class="subtitle">I specialize in capturing the beauty of nature, from flowers to birds and other breathtaking moments. My work aims to showcase the elegance and serenity found in everyday life.</p>
-
+    <h2>Photo Gallery</h2>
+    <a href="Download Terms.html" target="_blank" class="download-terms-btn">
+      <i class="fas fa-file-alt"></i> Download Terms
+    </a>
+    
     <div class="gallery" id="gallery">
       <!-- Photos will be inserted here by JavaScript -->
     </div>
@@ -307,7 +329,7 @@
     </div>
     <div class="copyright">
       <p>Copyright ©2025. All rights reserved | <a href="https://www.facebook.com/himelography.sh">HimeloGraphy</a></p>
-      <p class="mt-2">Property of   <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
+      <p class="mt-2">Property of <a href="https://www.facebook.com/husainshawkat.sh">Husain Shawkat</a></p>
     </div>
   </footer>
 
