@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download Terms - Husain Shawkat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #1e1e1e;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffb2;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .credit-box {
+      background: #222;
+      padding: 1rem;
+      border-left: 4px solid #00ffb2;
+      margin-bottom: 1.5rem;
+      font-family: monospace;
+      word-break: break-word;
+      user-select: all;
+      border-radius: 8px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      background: #00ffb2;
+      color: #000;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #00c999;
+    }
+
+    .success {
+      color: #0f0;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>ছবির ব্যবহার শর্ত</h1>
+    <p>
+      তুমি চাইলে এই ছবি গুলো <strong>ব্যক্তিগত কাজে</strong> এবং <strong>সোশ্যাল মিডিয়ায়</strong> পোস্ট করতে পারো। তবে শর্ত হলো, <strong>সঠিক ক্রেডিট</strong> দিতে হবে:
+    </p>
+
+    <div class="credit-box" id="creditText">
+      ©Husain Shawkat | #husain_shawkat
+    </div>
+
+    <p>উপরে দেওয়া ক্রেডিট কপি করে পোস্টে ব্যবহার করো।</p>
+
+    <form id="creditForm">
+      <input type="text" id="name" placeholder="তোমার নাম" required />
+      <input type="text" id="link" placeholder="পোস্ট লিংক বা সোশ্যাল প্রোফাইল লিংক" required />
+      <button type="submit">সাবমিট করে ক্রেডিট নিশ্চিত করো</button>
+      <div class="success" id="successMessage" style="display:none;">
+        সাবমিশন সফল! ধন্যবাদ।
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("creditForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById("name").value.trim();
+      const link = document.getElementById("link").value.trim();
+      
+      const message = `নতুন ক্রেডিট সাবমিশন:\n\n👤 নাম: ${name}\n🔗 লিংক: ${link}`;
+      
+      const telegramBotToken = "8016819291:AAEeCR86coKJNJfuPFVGsWGHHmpQOXdY0XQ";
+      const telegramChatId = "1987016824";
+
+      try {
+        await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chat_id: telegramChatId,
+            text: message
+          })
+        });
+
+        document.getElementById("successMessage").style.display = "block";
+        form.reset();
+      } catch (err) {
+        alert("Error sending to Telegram. Try again.");
+      }
+    });
+  </script>
+</body>
+</html>
