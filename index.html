@@ -27,7 +27,7 @@
     }
     
     .hero-section {
-      background-image: url('img/expansion_20240513073620280.jpg');
+      
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -129,20 +129,29 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="h-screen hero-section relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-black/30"></div>
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-      <h1 class="text-6xl font-bold mb-6 gradiant-text">Welcome</h1>
-      <h2 class="text-5xl font-semibold">
-        I'm <span class="gradiant-text"><a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-accent transition-colors">Husain Shawkat</a></span>
-      </h2>
-      <p class="text-3xl mt-4 font-light">Photographer & Creative Editor</p>
-      <a href="Photography.html" class="mt-8 px-8 py-4 gradient-bg hover:bg-gradient-to-r from-var(--primary) to-var(--accent) rounded-lg text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105">
-        Explore My Photography
-      </a>
-    </div>
-  </section>
+<!-- Hero Section -->
+<section class="h-screen hero-section relative overflow-hidden">
+  <!-- ✅ Background Video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="img/InShot_20250528_154330668.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- ✅ Dark Overlay -->
+  <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+  <!-- ✅ Hero Content -->
+  <div class="relative z-20 flex flex-col items-center justify-center h-full text-center text-white px-4">
+    <h1 class="text-6xl font-bold mb-6 gradiant-text">Welcome</h1>
+    <h2 class="text-5xl font-semibold">
+      I'm <span class="gradiant-text"><a href="https://www.facebook.com/husainshawkat.sh" class="hover:text-accent transition-colors">Husain Shawkat</a></span>
+    </h2>
+    <p class="text-3xl mt-4 font-light">Photographer & Creative Editor</p>
+    <a href="Photography.html" class="mt-8 px-8 py-4 gradient-bg hover:bg-gradient-to-r from-var(--primary) to-var(--accent) rounded-lg text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105">
+      Explore My Photography
+    </a>
+  </div>
+</section>
 
   <!-- About Section -->
   <section id="about" class="py-16 bg-gray-100 text-gray-800">
