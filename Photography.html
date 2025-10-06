@@ -1,300 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HimeloGraphy — Modern Masonry Gallery</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery</title>
   <style>
-    :root{
-      --bg: radial-gradient(1200px 800px at 20% -10%, #112233 0%, rgba(17,34,51,0) 60%),
-            radial-gradient(900px 600px at 120% 10%, #0b3d3d 0%, rgba(11,61,61,0) 70%),
-            linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-      --glass: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.16);
-      --text: rgba(255,255,255,.9);
-      --muted: rgba(255,255,255,.6);
-      --accent: #00e0ff; /* cyan */
-      --shadow: 0 20px 40px rgba(0,0,0,.35);
-      --radius: 16px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      color:var(--text); background:var(--bg); display:flex; flex-direction:column;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Header */
-    .site-header{position:sticky; top:0; z-index:30; backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.15)); border-bottom:1px solid var(--border);}
-    .header-wrap{max-width:1200px; margin:auto; padding:14px 18px; display:flex; align-items:center; gap:14px}
-    .logo{width:48px; height:48px; border-radius:999px; object-fit:cover; border:2px solid var(--accent); box-shadow:0 0 18px rgba(0,224,255,.35)}
-    .brand{display:flex; flex-direction:column}
-    .brand h1{margin:0; font-size:1.2rem; letter-spacing:.4px}
-    .brand small{color:var(--muted)}
-    .cta-row{margin-left:auto; display:flex; gap:10px; flex-wrap:wrap}
-    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--border);
-      color:var(--text); background:var(--glass); cursor:pointer; text-decoration:none; transition:.25s}
-    .btn:hover{transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.35); border-color:rgba(0,224,255,.35)}
-    .btn.accent{background:linear-gradient(135deg, rgba(0,224,255,.18), rgba(16,185,129,.18)); border-color:rgba(0,224,255,.35)}
+    body {
+      background-color: #121212;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
 
-    /* Hero */
-    .hero{max-width:1200px; margin:28px auto 10px; padding:0 18px}
-    .hero h2{font-size:2.2rem; margin:.25rem 0 .5rem; background:linear-gradient(90deg, #00f5ff, #00ffa3);
-      -webkit-background-clip:text; background-clip:text; color:transparent}
-    .hero p{color:var(--muted); margin:0}
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-    /* Masonry (CSS columns) */
-    .masonry{max-width:1200px; margin:18px auto 40px; padding:0 18px; column-gap:18px}
-    .masonry{column-count:1}
-    @media (min-width:560px){.masonry{column-count:2}}
-    @media (min-width:900px){.masonry{column-count:3}}
-    @media (min-width:1200px){.masonry{column-count:4}}
+    header {
+      text-align: center;
+      padding: 20px 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-bottom: 1px solid #333;
+      margin-bottom:10px;
+    }
 
-    .card{break-inside:avoid; margin:0 0 18px; background:var(--glass); border:1px solid var(--border);
-      border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); position:relative;
-      transition:transform .3s ease, box-shadow .3s ease}
-    .card:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,224,255,.15)}
-    .card-media{position:relative}
-    .card-media img{display:block; width:100%; height:auto; object-fit:cover; transform:scale(1.001); transition:transform .5s ease}
-    .card:hover .card-media img{transform:scale(1.05)}
-    .badge{position:absolute; top:10px; left:10px; padding:6px 10px; font-size:.7rem; border-radius:999px;
-      background:rgba(0,0,0,.45); border:1px solid var(--border)}
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
 
-    .card-info{padding:12px 12px 14px}
-    .title{font-weight:600}
-    .meta{color:var(--muted); font-size:.9rem; margin-top:4px}
-    .actions{display:flex; gap:10px; margin-top:12px}
-    .btn-ghost{flex:1; display:inline-flex; justify-content:center; align-items:center; gap:8px; padding:10px; font-size:.9rem;
-      border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,.04); color:var(--text); cursor:pointer; transition:.25s}
-    .btn-ghost:hover{background:rgba(0,224,255,.18); color:#001014}
+    .subtitle {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .filter-btn:hover {
+      background: #444;
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      color: #121212;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      background: #1e1e1e;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Image keeps its own ratio */
+    .photo-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      transition: transform 0.5s ease;
+    }
+
+    .photo-card:hover .photo-img {
+      transform: scale(1.05);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover .photo-overlay {
+      transform: translateY(0);
+    }
+
+    .photo-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .photo-category {
+      display: inline-block;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+      border-top: 1px solid #333;
+      color: #777;
+      font-size: 0.9rem;
+    }
 
     /* Lightbox */
-    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:saturate(120%) blur(4px); display:none;
-      align-items:center; justify-content:center; z-index:50}
-    .lightbox.open{display:flex}
-    .lb-inner{position:relative; width:min(96vw,1100px); max-height:90vh; background:var(--glass); border:1px solid var(--border);
-      border-radius:18px; box-shadow:0 40px 80px rgba(0,0,0,.5); overflow:hidden}
-    .lb-media{background:#000; display:flex; align-items:center; justify-content:center; max-height:75vh}
-    .lb-media img{max-width:100%; max-height:75vh; width:auto; height:auto}
-    .lb-bar{display:flex; align-items:center; gap:10px; padding:10px 12px; border-top:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03))}
-    .lb-title{font-weight:600}
-    .lb-meta{color:var(--muted); font-size:.9rem}
-    .spacer{flex:1}
-    .nav-btn{position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:999px;
-      border:1px solid var(--border); background:rgba(255,255,255,.08); color:var(--text); display:grid; place-items:center;
-      cursor:pointer; transition:.25s}
-    .nav-btn:hover{background:rgba(0,224,255,.25)}
-    .nav-prev{left:10px}
-    .nav-next{right:10px}
-    .nav-close{position:absolute; top:10px; right:10px}
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-    /* Toast */
-    .toast{position:fixed; left:50%; transform:translateX(-50%); bottom:28px; padding:10px 16px; border-radius:999px;
-      background:#111827; color:#e5e7eb; border:1px solid #374151; display:none; z-index:60}
-    .toast.show{display:block}
+    .lightbox.active {
+      display: flex;
+    }
 
-    /* Footer */
-    footer{margin-top:auto; border-top:1px solid var(--border); background:rgba(0,0,0,.45); backdrop-filter:blur(10px)}
-    .foot-wrap{max-width:1200px; margin:auto; padding:28px 18px; text-align:center}
-    .social{display:flex; gap:18px; justify-content:center; margin:10px 0 14px}
-    .social a{color:var(--muted); font-size:1.35rem; transition:.25s}
-    .social a:hover{color:var(--accent)}
-    .copy{color:var(--muted); font-size:.95rem}
-    @media (prefers-reduced-motion: reduce){*{transition:none !important; animation:none !important}}
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 80%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-title {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+      color: white;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-prev, .lightbox-next {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .lightbox-prev:hover, .lightbox-next:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+      .filter-buttons {
+        gap: 5px;
+      }
+      .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-wrap">
-      <img src="img/20250320_045144.png" alt="Husain Shawkat Logo" class="logo"/>
-      <div class="brand">
-        <h1>Husain Shawkat</h1>
-        <small>HimeloGraphy — Photo Stories</small>
-      </div>
-      <div class="cta-row">
-        <a class="btn accent" href="Download Terms.html" target="_blank"><i class="fa-solid fa-file-lines"></i> Download Terms</a>
-        <a class="btn" href="https://www.facebook.com/himelography.sh" target="_blank"><i class="fa-brands fa-facebook"></i> Page</a>
-      </div>
-    </div>
-  </header>
+  
 
-  <!-- Title -->
-  <section class="hero">
-    <h2>Photo Gallery</h2>
-    <p>Minimal, fast and elegant masonry layout. Click any photo to open fullscreen, share or download.</p>
-  </section>
+  
 
-  <!-- Masonry Gallery -->
-  <main class="masonry" id="gallery"></main>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lb-inner">
-      <button class="nav-btn nav-prev" id="lbPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="nav-btn nav-next" id="lbNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
-      <button class="nav-btn nav-close" id="lbClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-
-      <div class="lb-media"><img id="lbImg" src="" alt="Preview"/></div>
-      <div class="lb-bar">
-        <div>
-          <div class="lb-title" id="lbTitle">Title</div>
-          <div class="lb-meta" id="lbMeta">Property of Husain Shawkat</div>
-        </div>
-        <div class="spacer"></div>
-        <button class="btn-ghost" id="lbDownload"><i class="fa-solid fa-download"></i> Download</button>
-        <button class="btn-ghost" id="lbShare"><i class="fa-solid fa-share-nodes"></i> Share</button>
-      </div>
-    </div>
+    <div class="gallery" id="photoGallery"></div>
   </div>
 
-  <!-- Toast -->
-  <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Link copied!</span></div>
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <div class="lightbox-nav">
+      <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
+      <button class="lightbox-next" id="lightboxNext">&#10095;</button>
+    </div>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <div class="lightbox-title" id="lightboxTitle"></div>
+  </div>
 
-  <!-- Footer -->
   <footer>
-    <div class="foot-wrap">
-      <h3 style="color:var(--accent); margin:0 0 8px;">Follow Me</h3>
-      <div class="social">
-        <a href="https://www.instagram.com/husain_shawkat" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com/husainshawkat.sh" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/HusainShawkat" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/+8801521751139" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://t.me/husain_shawkat" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-      </div>
-      <div class="copy">©2025 HimeloGraphy | Property of <a href="https://www.facebook.com/husainshawkat.sh" style="color:var(--accent); text-decoration:none;">Husain Shawkat</a></div>
+    <div class="container">
+      <p>© 2025 Husain Shawkat । All rights reserved</p>
     </div>
   </footer>
 
   <script>
-    // === Original photos preserved ===
     const photos = [
-      { src: "PG/retouch_2025022217325575.jpg", title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/IMG_2764.jpg",             title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/1000050875.jpg",                title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/Picsart_25-09-27_22-52-10-463.jpg",                title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/1747285587087.jpg",             title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/1000058323 (1).jpg",            title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/IMG_20250414_130233.jpg",       title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/IMG_20250418_182358.jpg",       title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/IMG_20250423_170912.jpg",       title: "HimeloGraphyt", date: "Property of Husain Shawkat" },
-      { src: "PG/IMG_20250425_170542.jpg",       title: "HimeloGraphy", date: "Property of Husain Shawkat" },
-      { src: "PG/Sh20241013_164532772himel.PORTRAIT.jpg", title: "HimeloGraphy", date: "Property of Husain Shawkat" }
+      { src: "PG/retouch_2025022217325575.jpg", title: "#husain_shawkat", category: "portrait" },
+      { src: "PG/IMG_2764.jpg", title: "#husain_shawkat", category: "landscape" },
+      { src: "PG/1000050875.jpg", title: "#husain_shawkat", category: "street" },
+      { src: "PG/Picsart_25-09-27_22-52-10-463.jpg", title: "#husain_shawkat", category: "event" },
+      { src: "PG/1747285587087.jpg", title: "#husain_shawkat", category: "landscape" },
+      { src: "PG/1000058323 (1).jpg", title: "#husain_shawkat", category: "portrait" },
+      { src: "PG/IMG_20250414_130233.jpg", title: "#husain_shawkat", category: "street" },
+      { src: "PG/IMG_20250418_182358.jpg", title: "#husain_shawkat", category: "event" },
+      { src: "PG/IMG_20250423_170912.jpg", title: "#husain_shawkat", category: "landscape" },
+      { src: "PG/IMG_20250425_170542.jpg", title: "#husain_shawkat", category: "portrait" },
+      { src: "PG/Sh20241013_164532772himel.PORTRAIT.jpg", title: "#husain_shawkat", category: "portrait" }
     ];
 
-    // DOM
-    const gallery   = document.getElementById('gallery');
-    const lightbox  = document.getElementById('lightbox');
-    const lbImg     = document.getElementById('lbImg');
-    const lbTitleEl = document.getElementById('lbTitle');
-    const lbMetaEl  = document.getElementById('lbMeta');
-    const lbPrev    = document.getElementById('lbPrev');
-    const lbNext    = document.getElementById('lbNext');
-    const lbClose   = document.getElementById('lbClose');
-    const lbDownload= document.getElementById('lbDownload');
-    const lbShare   = document.getElementById('lbShare');
-    const toast     = document.getElementById('toast');
-    const toastMsg  = document.getElementById('toastMsg');
+    const gallery = document.getElementById('photoGallery');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
 
-    let currentIndex = 0;
+    let currentPhotoIndex = 0;
 
-    // Build masonry cards
-    photos.forEach((p, idx) => {
-      const card = document.createElement('article');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-media">
-          <img src="${p.src}" alt="${p.title}" loading="lazy" />
-          <span class="badge">${p.title}</span>
-        </div>
-        <div class="card-info">
-          <div class="title">${p.title}</div>
-          <div class="meta">${p.date}</div>
-          <div class="actions">
-            <button class="btn-ghost" data-action="view"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> View</button>
-            <button class="btn-ghost" data-action="download"><i class="fa-solid fa-download"></i> Download</button>
-            <button class="btn-ghost" data-action="share"><i class="fa-solid fa-share-nodes"></i> Share</button>
+    function initGallery() {
+      displayPhotos(photos);
+      setupEventListeners();
+    }
+
+    function displayPhotos(photosToShow) {
+      gallery.innerHTML = '';
+      photosToShow.forEach((photo, index) => {
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('data-category', photo.category);
+        card.setAttribute('data-index', index);
+
+        card.innerHTML = `
+          <img src="${photo.src}" alt="${photo.title}" class="photo-img">
+          <div class="photo-overlay">
+            <h3 class="photo-title">${photo.title}</h3>
+            <span class="photo-category">${photo.category}</span>
           </div>
-        </div>
-      `;
-      card.querySelector('[data-action="view"]').addEventListener('click', () => openLightbox(idx));
-      card.querySelector('[data-action="download"]').addEventListener('click', () => downloadPhoto(p.src, (p.title||'photo').replace(/\s+/g,'_')));
-      card.querySelector('[data-action="share"]').addEventListener('click', () => sharePhoto(p.src, p.title));
-      card.querySelector('img').addEventListener('click', () => openLightbox(idx));
-      gallery.appendChild(card);
-    });
-
-    // Lightbox controls
-    function openLightbox(i){
-      currentIndex = i;
-      const item = photos[i];
-      lbImg.src = item.src;
-      lbImg.alt = item.title || 'Preview';
-      lbTitleEl.textContent = item.title || 'HimeloGraphy';
-      lbMetaEl.textContent  = item.date  || 'Property of Husain Shawkat';
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden','false');
-    }
-    function closeLightbox(){
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden','true');
-    }
-    function next(){ openLightbox((currentIndex+1) % photos.length); }
-    function prev(){ openLightbox((currentIndex-1+photos.length) % photos.length); }
-
-    lbNext.addEventListener('click', next);
-    lbPrev.addEventListener('click', prev);
-    lbClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e)=>{
-      if(!lightbox.classList.contains('open')) return;
-      if(e.key==='Escape') closeLightbox();
-      if(e.key==='ArrowRight') next();
-      if(e.key==='ArrowLeft') prev();
-    });
-
-    // Download
-    function downloadPhoto(url, filename='photo'){
-      const a=document.createElement('a');
-      a.href=url; a.setAttribute('download', filename);
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      showToast('Downloading…');
+        `;
+        gallery.appendChild(card);
+      });
     }
 
-    // Share (fallback to clipboard)
-    async function sharePhoto(url, title='HimeloGraphy'){
-      try{
-        if(navigator.share){
-          await navigator.share({title, url});
-        }else{
-          await navigator.clipboard.writeText(location.origin ? new URL(url, location.href).href : url);
-          showToast('Link copied to clipboard!');
+    function filterPhotos(category) {
+      if (category === 'all') displayPhotos(photos);
+      else displayPhotos(photos.filter(p => p.category === category));
+    }
+
+    function setupEventListeners() {
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          filterPhotos(btn.dataset.filter);
+        });
+      });
+
+      document.addEventListener('click', e => {
+        const card = e.target.closest('.photo-card');
+        if (card) {
+          currentPhotoIndex = parseInt(card.dataset.index);
+          openLightbox(currentPhotoIndex);
         }
-      }catch{
-        try{
-          await navigator.clipboard.writeText(url);
-          showToast('Link copied to clipboard!');
-        }catch{
-          showToast('Could not share. Copied failed.');
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', showPrevPhoto);
+      lightboxNext.addEventListener('click', showNextPhoto);
+
+      document.addEventListener('keydown', e => {
+        if (lightbox.classList.contains('active')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') showPrevPhoto();
+          if (e.key === 'ArrowRight') showNextPhoto();
         }
-      }
+      });
+
+      lightbox.addEventListener('click', e => {
+        if (e.target === lightbox) closeLightbox();
+      });
     }
 
-    // Lightbox buttons actions
-    lbDownload.addEventListener('click', ()=> downloadPhoto(photos[currentIndex].src, (photos[currentIndex].title||'photo').replace(/\s+/g,'_')));
-    lbShare.addEventListener('click',   ()=> sharePhoto(photos[currentIndex].src, photos[currentIndex].title));
-
-    // Toast
-    let toastTimer;
-    function showToast(msg='Done'){
-      toastMsg.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=> toast.classList.remove('show'), 2400);
+    function openLightbox(index) {
+      const photo = photos[index];
+      lightboxImg.src = photo.src;
+      lightboxTitle.textContent = photo.title;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function showPrevPhoto() {
+      currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+      openLightbox(currentPhotoIndex);
+    }
+
+    function showNextPhoto() {
+      currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+      openLightbox(currentPhotoIndex);
+    }
+
+    document.addEventListener('DOMContentLoaded', initGallery);
   </script>
 </body>
-                              </html>
+</html>
