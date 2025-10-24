@@ -140,6 +140,30 @@
       margin-top: 5px;
     }
 
+    .photo-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
     footer {
       text-align: center;
       padding: 30px 0;
@@ -220,6 +244,133 @@
       background: rgba(255, 255, 255, 0.4);
     }
 
+    .lightbox-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .lightbox-action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lightbox-action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Share Modal */
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .share-modal.active {
+      display: flex;
+    }
+
+    .share-content {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .share-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .share-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .share-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .share-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .share-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      background: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .share-option:hover {
+      background: #444;
+      transform: translateY(-3px);
+    }
+
+    .share-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .share-label {
+      font-size: 0.9rem;
+    }
+
+    .share-link {
+      display: flex;
+      margin-top: 15px;
+    }
+
+    .share-url {
+      flex: 1;
+      padding: 10px 15px;
+      background: #333;
+      border: none;
+      border-radius: 30px 0 0 30px;
+      color: white;
+    }
+
+    .copy-btn {
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      border: none;
+      border-radius: 0 30px 30px 0;
+      color: #121212;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       h1 {
@@ -228,6 +379,10 @@
       .gallery {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 15px;
+      }
+      .lightbox-actions {
+        flex-direction: column;
+        gap: 10px;
       }
     }
 
@@ -245,14 +400,28 @@
         padding: 8px 15px;
         font-size: 0.9rem;
       }
+      .share-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  
+  <header>
+    <div class="container">
+      <h1>Photo Gallery</h1>
+      <p class="subtitle">Capturing moments, creating memories</p>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="portrait">Portrait</button>
+        <button class="filter-btn" data-filter="landscape">Landscape</button>
+        <button class="filter-btn" data-filter="street">Street</button>
+        <button class="filter-btn" data-filter="event">Event</button>
+      </div>
+    </div>
+  </header>
 
-  
-
+  <div class="container">
     <div class="gallery" id="photoGallery"></div>
   </div>
 
@@ -264,6 +433,56 @@
     </div>
     <img class="lightbox-img" id="lightboxImg" src="" alt="">
     <div class="lightbox-title" id="lightboxTitle"></div>
+    <div class="lightbox-actions">
+      <button class="lightbox-action-btn" id="lightboxDownload">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 16L12 4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 20H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Download
+      </button>
+      <button class="lightbox-action-btn" id="lightboxShare">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Share
+      </button>
+    </div>
+  </div>
+
+  <div class="share-modal" id="shareModal">
+    <div class="share-content">
+      <div class="share-header">
+        <h3 class="share-title">Share this photo</h3>
+        <button class="share-close" id="shareClose">&times;</button>
+      </div>
+      <div class="share-options">
+        <div class="share-option" data-platform="facebook">
+          <div class="share-icon">f</div>
+          <div class="share-label">Facebook</div>
+        </div>
+        <div class="share-option" data-platform="twitter">
+          <div class="share-icon">𝕏</div>
+          <div class="share-label">Twitter</div>
+        </div>
+        <div class="share-option" data-platform="whatsapp">
+          <div class="share-icon">📱</div>
+          <div class="share-label">WhatsApp</div>
+        </div>
+        <div class="share-option" data-platform="pinterest">
+          <div class="share-icon">P</div>
+          <div class="share-label">Pinterest</div>
+        </div>
+      </div>
+      <div class="share-link">
+        <input type="text" class="share-url" id="shareUrl" readonly>
+        <button class="copy-btn" id="copyUrl">Copy</button>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -295,6 +514,13 @@
     const lightboxClose = document.getElementById('lightboxClose');
     const lightboxPrev = document.getElementById('lightboxPrev');
     const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxDownload = document.getElementById('lightboxDownload');
+    const lightboxShare = document.getElementById('lightboxShare');
+    const shareModal = document.getElementById('shareModal');
+    const shareClose = document.getElementById('shareClose');
+    const shareUrl = document.getElementById('shareUrl');
+    const copyUrl = document.getElementById('copyUrl');
+    const shareOptions = document.querySelectorAll('.share-option');
 
     let currentPhotoIndex = 0;
 
@@ -316,6 +542,25 @@
           <div class="photo-overlay">
             <h3 class="photo-title">${photo.title}</h3>
             <span class="photo-category">${photo.category}</span>
+            <div class="photo-actions">
+              <button class="action-btn download-btn" data-index="${index}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 16L12 4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M4 20H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Download
+              </button>
+              <button class="action-btn share-btn" data-index="${index}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Share
+              </button>
+            </div>
           </div>
         `;
         gallery.appendChild(card);
@@ -325,6 +570,38 @@
     function filterPhotos(category) {
       if (category === 'all') displayPhotos(photos);
       else displayPhotos(photos.filter(p => p.category === category));
+    }
+
+    function downloadPhoto(photoSrc, photoTitle) {
+      // Create a temporary anchor element
+      const a = document.createElement('a');
+      a.href = photoSrc;
+      a.download = photoTitle || 'photo';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function sharePhoto(photoSrc, photoTitle) {
+      // Set the URL to share (in a real app, this would be the actual photo URL)
+      const url = window.location.href.split('?')[0] + '?photo=' + encodeURIComponent(photoSrc);
+      shareUrl.value = url;
+      
+      // Show the share modal
+      shareModal.classList.add('active');
+    }
+
+    function shareToPlatform(platform, url, title) {
+      const shareUrls = {
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+        twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+        whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + url)}`,
+        pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(title)}`
+      };
+      
+      if (shareUrls[platform]) {
+        window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+      }
     }
 
     function setupEventListeners() {
@@ -338,15 +615,53 @@
 
       document.addEventListener('click', e => {
         const card = e.target.closest('.photo-card');
-        if (card) {
+        if (card && !e.target.closest('.action-btn')) {
           currentPhotoIndex = parseInt(card.dataset.index);
           openLightbox(currentPhotoIndex);
+        }
+        
+        // Handle download button clicks in gallery
+        if (e.target.closest('.download-btn')) {
+          const index = e.target.closest('.download-btn').dataset.index;
+          downloadPhoto(photos[index].src, photos[index].title);
+        }
+        
+        // Handle share button clicks in gallery
+        if (e.target.closest('.share-btn')) {
+          const index = e.target.closest('.share-btn').dataset.index;
+          sharePhoto(photos[index].src, photos[index].title);
         }
       });
 
       lightboxClose.addEventListener('click', closeLightbox);
       lightboxPrev.addEventListener('click', showPrevPhoto);
       lightboxNext.addEventListener('click', showNextPhoto);
+      lightboxDownload.addEventListener('click', () => {
+        downloadPhoto(photos[currentPhotoIndex].src, photos[currentPhotoIndex].title);
+      });
+      lightboxShare.addEventListener('click', () => {
+        sharePhoto(photos[currentPhotoIndex].src, photos[currentPhotoIndex].title);
+      });
+
+      shareClose.addEventListener('click', () => {
+        shareModal.classList.remove('active');
+      });
+
+      copyUrl.addEventListener('click', () => {
+        shareUrl.select();
+        document.execCommand('copy');
+        copyUrl.textContent = 'Copied!';
+        setTimeout(() => {
+          copyUrl.textContent = 'Copy';
+        }, 2000);
+      });
+
+      shareOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          const platform = option.dataset.platform;
+          shareToPlatform(platform, shareUrl.value, photos[currentPhotoIndex].title);
+        });
+      });
 
       document.addEventListener('keydown', e => {
         if (lightbox.classList.contains('active')) {
@@ -354,10 +669,20 @@
           if (e.key === 'ArrowLeft') showPrevPhoto();
           if (e.key === 'ArrowRight') showNextPhoto();
         }
+        
+        if (shareModal.classList.contains('active') && e.key === 'Escape') {
+          shareModal.classList.remove('active');
+        }
       });
 
       lightbox.addEventListener('click', e => {
         if (e.target === lightbox) closeLightbox();
+      });
+
+      shareModal.addEventListener('click', e => {
+        if (e.target === shareModal) {
+          shareModal.classList.remove('active');
+        }
       });
     }
 
