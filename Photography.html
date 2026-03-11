@@ -8,8 +8,10 @@
 
 <title>Husain Shawkat Gallery</title>
 
-<!-- ICON -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
 <style>
 
@@ -25,8 +27,6 @@ background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:white;
 }
 
-/* header */
-
 header{
 text-align:center;
 padding:40px 0;
@@ -35,6 +35,350 @@ padding:40px 0;
 header h1{
 font-size:3rem;
 background:linear-gradient(45deg,#ff7e5f,#feb47b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+color:#ccc;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+/* gallery */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+padding:40px 0;
+}
+
+.photo-card{
+border-radius:15px;
+overflow:hidden;
+background:#111;
+box-shadow:0 10px 30px rgba(0,0,0,.6);
+transition:.4s;
+}
+
+.photo-card:hover{
+transform:translateY(-8px);
+}
+
+.photo-img{
+width:100%;
+height:auto;
+object-fit:contain;
+}
+
+.photo-overlay{
+padding:15px;
+background:#000;
+}
+
+.photo-title{
+font-size:16px;
+font-weight:600;
+}
+
+.photo-actions{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.action-btn{
+border:none;
+background:rgba(255,255,255,0.15);
+color:white;
+padding:6px 10px;
+border-radius:20px;
+cursor:pointer;
+font-size:13px;
+}
+
+.action-btn:hover{
+background:#ff7e5f;
+}
+
+/* lightbox */
+
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:1000;
+}
+
+.lightbox.active{
+display:flex;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:80vh;
+object-fit:contain;
+border-radius:10px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:35px;
+cursor:pointer;
+}
+
+.photo-details{
+margin-top:15px;
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:10px;
+font-size:14px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#aaa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<h1>Photo Gallery</h1>
+
+<p class="subtitle">Husain Shawkat Photography</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="gallery" id="gallery"></div>
+
+</div>
+
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="close" onclick="closeLightbox()">
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+<img id="lightboxImg">
+
+<h2 id="lightboxTitle"></h2>
+
+<div class="photo-details">
+
+<p>📷 Camera : <span id="detailCamera"></span></p>
+
+<p>📸 Lens : <span id="detailLens"></span></p>
+
+<p>⚙ ISO : <span id="detailISO"></span></p>
+
+<p>⏱ Shutter : <span id="detailShutter"></span></p>
+
+<p>🎯 Focal : <span id="detailFocal"></span></p>
+
+<p>🌡 Aperture : <span id="detailAperture"></span></p>
+
+<p>👁 Views : <span id="detailViews"></span></p>
+
+<p>❤️ Likes : <span id="detailLikes"></span></p>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2025 Husain Shawkat
+
+</footer>
+
+
+<script>
+
+const photos=[
+
+"PG/retouch_2025022217325575.jpg",
+"PG/IMG_2764.jpg",
+"PG/1000050875.jpg",
+"PG/Picsart_25-09-27_22-52-10-463.jpg",
+"PG/1747285587087.jpg",
+"PG/1000058323 (1).jpg",
+"PG/IMG_20250414_130233.jpg",
+"PG/IMG_20250418_182358.jpg",
+"PG/1000138560 (1).jpg",
+"PG/IMG_20250425_170542.jpg",
+"PG/Sh20241013_164532772himel.PORTRAIT.jpg"
+
+];
+
+let views=new Array(photos.length).fill(0);
+let likes=new Array(photos.length).fill(0);
+
+const gallery=document.getElementById("gallery");
+
+photos.forEach((src,i)=>{
+
+const card=document.createElement("div");
+
+card.className="photo-card";
+
+card.innerHTML=`
+
+<img src="${src}" class="photo-img">
+
+<div class="photo-overlay">
+
+<div class="photo-title">#husain_shawkat</div>
+
+<div class="photo-actions">
+
+<button class="action-btn" onclick="openLightbox(${i})">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+<button class="action-btn" onclick="likePhoto(${i})">
+
+<i class="fa-solid fa-heart"></i> ${likes[i]}
+
+</button>
+
+<button class="action-btn" onclick="downloadPhoto('${src}')">
+
+<i class="fa-solid fa-download"></i>
+
+</button>
+
+<button class="action-btn" onclick="sharePhoto('${src}')">
+
+<i class="fa-solid fa-share"></i>
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+gallery.appendChild(card);
+
+});
+
+
+function openLightbox(i){
+
+views[i]++;
+
+const img=document.getElementById("lightboxImg");
+
+img.src=photos[i];
+
+document.getElementById("lightboxTitle").textContent="#husain_shawkat";
+
+document.getElementById("detailViews").textContent=views[i];
+document.getElementById("detailLikes").textContent=likes[i];
+
+EXIF.getData(img,function(){
+
+const make=EXIF.getTag(this,"Make");
+const model=EXIF.getTag(this,"Model");
+const lens=EXIF.getTag(this,"LensModel");
+const iso=EXIF.getTag(this,"ISOSpeedRatings");
+const shutter=EXIF.getTag(this,"ExposureTime");
+const focal=EXIF.getTag(this,"FocalLength");
+const aperture=EXIF.getTag(this,"FNumber");
+
+document.getElementById("detailCamera").textContent=(make||"")+" "+(model||"");
+document.getElementById("detailLens").textContent=lens||"-";
+document.getElementById("detailISO").textContent=iso||"-";
+document.getElementById("detailShutter").textContent=shutter||"-";
+
+if(focal)
+document.getElementById("detailFocal").textContent=focal.numerator/focal.denominator+"mm";
+
+else
+document.getElementById("detailFocal").textContent="-";
+
+document.getElementById("detailAperture").textContent=aperture?("f/"+aperture):"-";
+
+});
+
+document.getElementById("lightbox").classList.add("active");
+
+}
+
+
+function closeLightbox(){
+
+document.getElementById("lightbox").classList.remove("active");
+
+}
+
+
+function likePhoto(i){
+
+likes[i]++;
+
+location.reload();
+
+}
+
+
+function downloadPhoto(src){
+
+const a=document.createElement("a");
+
+a.href=src;
+
+a.download="photo";
+
+a.click();
+
+}
+
+
+function sharePhoto(src){
+
+navigator.clipboard.writeText(location.origin+"/"+src);
+
+alert("Photo link copied");
+
+}
+
+</script>
+
+</body>
+
+</html>background:linear-gradient(45deg,#ff7e5f,#feb47b);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
