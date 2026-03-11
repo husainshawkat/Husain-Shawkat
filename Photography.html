@@ -1,40 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photo Gallery</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
 
-    body {
-      background-color: #121212;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+<title>Husain Shawkat Gallery</title>
 
-    header {
-      text-align: center;
-      padding: 20px 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-bottom: 1px solid #333;
-      margin-bottom:10px;
-    }
+<!-- ICON -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+/* header */
+
+header{
+text-align:center;
+padding:40px 0;
+}
+
+header h1{
+font-size:3rem;
+background:linear-gradient(45deg,#ff7e5f,#feb47b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+color:#ccc;
+}
+
+/* filter */
+
+.filter-buttons{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.filter-btn{
+border:none;
+padding:10px 18px;
+border-radius:25px;
+background:rgba(255,255,255,0.1);
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+.filter-btn:hover{
+background:#ff7e5f;
+}
+
+.filter-btn.active{
+background:#ff7e5f;
+}
+
+/* gallery */
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+padding:40px 0;
+}
+
+/* card */
+
+.photo-card{
+position:relative;
+border-radius:15px;
+overflow:hidden;
+background:#111;
+box-shadow:0 15px 40px rgba(0,0,0,.5);
+transition:.4s;
+}
+
+.photo-card:hover{
+transform:translateY(-10px);
+}
+
+.photo-img{
+width:100%;
+height:320px;
+object-fit:cover;
+transition:.5s;
+}
+
+.photo-card:hover .photo-img{
+transform:scale(1.1);
+}
+
+/* overlay */
+
+.photo-overlay{
+position:absolute;
+bottom:0;
+width:100%;
+padding:20px;
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+
+/* title */
+
+.photo-title{
+font-size:17px;
+font-weight:600;
+}
+
+/* category */
+
+.photo-category{
+background:#ff7e5f;
+padding:4px 10px;
+border-radius:15px;
+font-size:12px;
+display:inline-block;
+margin-top:6px;
+}
+
+/* action buttons */
+
+.photo-actions{
+display:flex;
+justify-content:space-between;
+margin-top:12px;
+}
+
+.action-btn{
+border:none;
+background:rgba(255,255,255,0.15);
+color:white;
+padding:7px 10px;
+border-radius:20px;
+cursor:pointer;
+transition:.3s;
+font-size:13px;
+}
+
+.action-btn:hover{
+background:#ff7e5f;
+}
+
+/* lightbox */
+
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.9);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:1000;
+}
+
+.lightbox.active{
+display:flex;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:70vh;
+border-radius:10px;
+box-shadow:0 10px 40px black;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:35px;
+cursor:pointer;
+}
+
+/* details */
+
+.photo-details{
+margin-top:15px;
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:10px;
+font-size:14px;
+}
+
+.photo-details p{
+margin:5px 0;
+}
+
+/* footer */
+
+footer{
+text-align:center;
+padding:40px;
+color:#aaa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<h1>Photo Gallery</h1>
+
+<p class="subtitle">Husain Shawkat Photography</p>
+
+<div class="filter-buttons">
+
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="portrait">Portrait</button>
+<button class="filter-btn" data-filter="landscape">Landscape</button>
+<button class="filter-btn" data-filter="street">Street</button>
+<button class="filter-btn" data-filter="event">Event</button>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<div class="gallery" id="gallery"></div>
+
+</div>
+
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="close" onclick="closeLightbox()">
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+<img id="lightboxImg">
+
+<h2 id="lightboxTitle"></h2>
+
+<div class="photo-details">
+
+<p><i class="fa-solid fa-folder"></i> Category : <span id="detailCategory"></span></p>
+
+<p><i class="fa-solid fa-calendar"></i> Date : <span id="detailDate"></span></p>
+
+<p><i class="fa-solid fa-camera"></i> Camera : <span id="detailCamera"></span></p>
+
+<p><i class="fa-solid fa-location-dot"></i> Location : <span id="detailLocation"></span></p>
+
+<p><i class="fa-solid fa-eye"></i> Views : <span id="detailViews"></span></p>
+
+<p><i class="fa-solid fa-heart"></i> Likes : <span id="detailLikes"></span></p>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2025 Husain Shawkat
+
+</footer>
+
+
+
+<script>
+
+const photos=[
+
+{
+src:"PG/retouch_2025022217325575.jpg",
+title:"#husain_shawkat",
+category:"portrait",
+date:"22 Feb 2025",
+camera:"Redmi Note 12",
+location:"Dhaka",
+views:0,
+likes:0
+},
+
+{
+src:"PG/IMG_2764.jpg",
+title:"#husain_shawkat",
+category:"landscape",
+date:"14 Apr 2025",
+camera:"Redmi Note 12",
+location:"Kaliganj",
+views:0,
+likes:0
+},
+
+{
+src:"PG/1000050875.jpg",
+title:"#husain_shawkat",
+category:"street",
+date:"2025",
+camera:"Redmi",
+location:"BD",
+views:0,
+likes:0
+},
+
+{
+src:"PG/Picsart_25-09-27_22-52-10-463.jpg",
+title:"#husain_shawkat",
+category:"event",
+date:"2025",
+camera:"Redmi",
+location:"BD",
+views:0,
+likes:0
+}
+
+];
+
+
+const gallery=document.getElementById("gallery");
+
+
+function displayPhotos(list){
+
+gallery.innerHTML="";
+
+list.forEach((p,i)=>{
+
+const card=document.createElement("div");
+
+card.className="photo-card";
+
+card.innerHTML=`
+
+<img src="${p.src}" class="photo-img">
+
+<div class="photo-overlay">
+
+<div class="photo-title">${p.title}</div>
+
+<div class="photo-category">${p.category}</div>
+
+<div class="photo-actions">
+
+<button class="action-btn" onclick="openLightbox(${i})">
+<i class="fa-solid fa-eye"></i>
+</button>
+
+<button class="action-btn" onclick="likePhoto(${i})">
+<i class="fa-solid fa-heart"></i> ${p.likes}
+</button>
+
+<button class="action-btn" onclick="downloadPhoto('${p.src}')">
+<i class="fa-solid fa-download"></i>
+</button>
+
+<button class="action-btn" onclick="sharePhoto('${p.src}')">
+<i class="fa-solid fa-share"></i>
+</button>
+
+</div>
+
+</div>
+
+`;
+
+gallery.appendChild(card);
+
+});
+
+}
+
+displayPhotos(photos);
+
+
+
+function openLightbox(i){
+
+const p=photos[i];
+
+p.views++;
+
+document.getElementById("lightboxImg").src=p.src;
+document.getElementById("lightboxTitle").textContent=p.title;
+
+document.getElementById("detailCategory").textContent=p.category;
+document.getElementById("detailDate").textContent=p.date;
+document.getElementById("detailCamera").textContent=p.camera;
+document.getElementById("detailLocation").textContent=p.location;
+document.getElementById("detailViews").textContent=p.views;
+document.getElementById("detailLikes").textContent=p.likes;
+
+document.getElementById("lightbox").classList.add("active");
+
+displayPhotos(photos);
+
+}
+
+
+function closeLightbox(){
+
+document.getElementById("lightbox").classList.remove("active");
+
+}
+
+
+function likePhoto(i){
+
+photos[i].likes++;
+
+displayPhotos(photos);
+
+}
+
+
+function downloadPhoto(src){
+
+const a=document.createElement("a");
+
+a.href=src;
+a.download="photo";
+
+a.click();
+
+}
+
+
+function sharePhoto(src){
+
+navigator.clipboard.writeText(location.origin+"/"+src);
+
+alert("Photo link copied");
+
+}
+
+
+document.querySelectorAll(".filter-btn").forEach(btn=>{
+
+btn.onclick=()=>{
+
+document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+
+const cat=btn.dataset.filter;
+
+if(cat==="all") displayPhotos(photos);
+else displayPhotos(photos.filter(p=>p.category===cat));
+
+};
+
+});
+
+</script>
+
+</body>
+</html>      margin-bottom: 10px;
       background: linear-gradient(45deg, #ff7e5f, #feb47b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
