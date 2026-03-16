@@ -60,3 +60,292 @@ background:#333;
 color:white;
 cursor:pointer;
 }
+
+.filter-btn.active{
+background:linear-gradient(45deg,#ff7e5f,#feb47b);
+color:#000;
+}
+
+/* container */
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+/* gallery */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+padding:40px 0;
+}
+
+.photo-card{
+position:relative;
+border-radius:12px;
+overflow:hidden;
+cursor:pointer;
+}
+
+.photo-img{
+width:100%;
+height:auto;
+display:block;
+}
+
+/* overlay */
+
+.photo-overlay{
+position:absolute;
+bottom:0;
+width:100%;
+padding:15px;
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+
+.photo-title{
+font-size:16px;
+font-weight:600;
+}
+
+.photo-category{
+font-size:12px;
+background:#ff7e5f;
+padding:4px 10px;
+border-radius:20px;
+display:inline-block;
+margin-top:5px;
+}
+
+/* actions */
+
+.photo-actions{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.action-btn{
+border:none;
+background:rgba(255,255,255,0.2);
+color:white;
+padding:6px 10px;
+border-radius:20px;
+cursor:pointer;
+font-size:12px;
+}
+
+/* lightbox */
+
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:1000;
+}
+
+.lightbox.active{
+display:flex;
+}
+
+.lightbox img{
+max-width:90%;
+max-height:80vh;
+border-radius:10px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:35px;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#777;
+border-top:1px solid #333;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>Photo Gallery</h1>
+<p class="subtitle">Husain Shawkat Photography</p>
+
+<div class="filter-buttons">
+
+<button class="filter-btn active" data-filter="all">All</button>
+<button class="filter-btn" data-filter="portrait">Portrait</button>
+<button class="filter-btn" data-filter="landscape">Landscape</button>
+<button class="filter-btn" data-filter="street">Street</button>
+<button class="filter-btn" data-filter="event">Event</button>
+
+</div>
+
+</header>
+
+<div class="container">
+<div class="gallery" id="gallery"></div>
+</div>
+
+<!-- lightbox -->
+
+<div class="lightbox" id="lightbox">
+
+<div class="close" onclick="closeLightbox()">
+<i class="fa-solid fa-xmark"></i>
+</div>
+
+<img id="lightboxImg">
+
+</div>
+
+<footer>
+
+© 2025 Husain Shawkat
+
+</footer>
+
+<script>
+
+const photos=[
+
+{src:"PG/retouch_2025022217325575.jpg",category:"portrait"},
+{src:"PG/IMG_2764.jpg",category:"landscape"},
+{src:"PG/1000050875.jpg",category:"street"},
+{src:"PG/Picsart_25-09-27_22-52-10-463.jpg",category:"event"},
+{src:"PG/1747285587087.jpg",category:"landscape"},
+{src:"PG/1000058323 (1).jpg",category:"portrait"},
+{src:"PG/IMG_20250414_130233.jpg",category:"street"},
+{src:"PG/IMG_20250418_182358.jpg",category:"event"},
+{src:"PG/1000138560 (1).jpg",category:"landscape"},
+{src:"PG/IMG_20250425_170542.jpg",category:"portrait"},
+{src:"PG/Sh20241013_164532772himel.PORTRAIT.jpg",category:"portrait"}
+
+]
+
+const gallery=document.getElementById("gallery")
+
+function displayPhotos(list){
+
+gallery.innerHTML=""
+
+list.forEach((p,i)=>{
+
+const card=document.createElement("div")
+card.className="photo-card"
+
+card.innerHTML=`
+
+<img src="${p.src}" class="photo-img">
+
+<div class="photo-overlay">
+
+<div class="photo-title">#husain_shawkat</div>
+
+<div class="photo-category">${p.category}</div>
+
+<div class="photo-actions">
+
+<button class="action-btn" onclick="downloadPhoto('${p.src}')">
+<i class="fa-solid fa-download"></i>
+</button>
+
+<button class="action-btn" onclick="sharePhoto('${p.src}')">
+<i class="fa-solid fa-share"></i>
+</button>
+
+</div>
+
+</div>
+
+`
+
+card.onclick=()=>openLightbox(p.src)
+
+gallery.appendChild(card)
+
+})
+
+}
+
+displayPhotos(photos)
+
+/* filter */
+
+document.querySelectorAll(".filter-btn").forEach(btn=>{
+
+btn.onclick=()=>{
+
+document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"))
+
+btn.classList.add("active")
+
+const cat=btn.dataset.filter
+
+if(cat==="all") displayPhotos(photos)
+
+else displayPhotos(photos.filter(p=>p.category===cat))
+
+}
+
+})
+
+/* lightbox */
+
+function openLightbox(src){
+
+document.getElementById("lightboxImg").src=src
+
+document.getElementById("lightbox").classList.add("active")
+
+}
+
+function closeLightbox(){
+
+document.getElementById("lightbox").classList.remove("active")
+
+}
+
+/* download */
+
+function downloadPhoto(src){
+
+const a=document.createElement("a")
+a.href=src
+a.download="photo"
+a.click()
+
+}
+
+/* share */
+
+function sharePhoto(src){
+
+navigator.clipboard.writeText(location.origin+"/"+src)
+
+alert("Photo link copied")
+
+}
+
+</script>
+
+</body>
+  </html>
