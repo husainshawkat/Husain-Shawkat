@@ -1,40 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Husain | Shawkat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>Husain Shawkat Gallery</title>
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0c12, #030507);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: #f0f3f8;
+      scroll-behavior: smooth;
+    }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e1f2a;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #6b7a8a;
+      border-radius: 8px;
+    }
 
-<style>
+    .hero {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      backdrop-filter: blur(2px);
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #b3e0ff, #a97cff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .subhead {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #b9c7d9;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: inline-block;
+      padding-top: 0.5rem;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI;
-}
+    /* gallery grid — modern, but images keep EXACT ratio (no cropping) */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+      padding: 2rem 2rem 3rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
 
-body{
-background:#121212;
-color:white;
-}
+    /* card style — preserves natural image dimensions */
+    .gallery-item {
+      position: relative;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      background: rgba(20, 25, 35, 0.6);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 28px 40px -18px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
 
-/* header */
+    /* KEY: exact ratio — width 100%, height auto, no cropping */
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s;
+      filter: brightness(0.97) contrast(1.02);
+      background: #141824; /* fallback while loading */
+    }
+    .gallery-item:hover img {
+      transform: scale(1.03);
+      filter: brightness(1.02) contrast(1.04);
+    }
 
-header{
-text-align:center;
-padding:40px 20px;
-}
+    /* subtle icon on hover */
+    .gallery-item::after {
+      content: " ✰ ";
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 1.5rem;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      text-shadow: 0 2px 8px black;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gallery-item:hover::after {
+      opacity: 0.8;
+      transform: translateX(0);
+    }
 
-header h1{
-font-size:3rem;
-background:linear-gradient(45deg,#ff7e5f,#feb47b);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+    /* Lightbox — modern, keeps exact ratio too */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 7, 12, 0.92);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.25s, opacity 0.3s ease-in-out;
+      z-index: 2000;
+      cursor: pointer;
+    }
+    .lightbox.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .lightbox-container {
+      position: relative;
+      max-width: 92vw;
+      max-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      animation: scaleFade 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes scaleFade {
+      0% { opacity: 0; transform: scale(0.94);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+
+    /* lightbox image — preserves exact ratio, no stretch */
+    .lightbox-image {
+      max-width: 88vw;
+      max-height: 82vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.15);
+      background: #0f111a;
+    }
+
+    /* navigation buttons */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(20, 28, 40, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 52px;
+      height: 52px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #f0f3fc;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      z-index: 15;
+    }
+    .nav-btn:hover {
+      background: rgba(45, 60, 90, 0.9);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .prev-btn { left: 1rem; }
+    .next-btn { right: 1rem; }
+
+    .close-lightbox {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: all 0.2s;
+      z-index: 20;
+      font-family: monospace;
+    }
+    .close-lightbox:hover {
+      background: rgba(200, 60, 70, 0.8);
+      transform: scale(1.05);
+    }
+
+    .image-counter {
+      position: absolute;
+      bottom: -2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,240,0.2);
+      color: #eef5ff;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 680px) {
+      .gallery {
+        padding: 1.5rem 1rem;
+        gap: 1.2rem;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      }
+      h1 { font-size: 2.2rem; }
+      .nav-btn { width: 44px; height: 44px; font-size: 1.8rem; }
+      .prev-btn { left: 0.2rem; }
+      .next-btn { right: 0.2rem; }
+      .close-lightbox { top: 1rem; right: 1rem; width: 40px; height: 40px; }
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      padding: 1.5rem 0 2rem;
+      opacity: 0.5;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>✰ Husain Shawkat ✰</h1>
+  <div class="subhead">IMMERSIVE VISUALS • LANDSCAPE</div>
+</div>
+
+<div class="gallery" id="gallery"></div>
+<footer>© 2026 Husain Shawkat. All Rights Reserved. </footer>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-container" id="lightboxContainer">
+    <button class="close-lightbox" id="closeLightboxBtn" aria-label="Close">✕</button>
+    <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous">‹</button>
+    <img class="lightbox-image" id="lightboxImg" alt="enlarged view">
+    <button class="nav-btn next-btn" id="nextBtn" aria-label="Next">›</button>
+    <div class="image-counter" id="imageCounter">0 / 0</div>
+  </div>
+</div>
+
+<script>
+  // Original images + extra beautiful ones (all keep exact ratio automatically)
+  const images = [
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRiiCIwvjFSX4GpZP_k_qgXzfasi8lgFvmgfhjCeV8xozU4sUvtFNXa0y61YWWGU0ixHNaYzK_6UowB2S4wqYpxNlH_Kg3pPSvHJOjA-BBvYMKp4ZbbULEEN1Kgb6-QlDkpp91HO5Fu9XwaNZ8IYdm01LDR9-x_22t7e8JH8st2pspLuSPhieE8IwJlDh1/w640-h336/1000005330.jpg",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTtGa7ne4D1k5D05UW_hXI-QW3pb_ANUdzndQ-ng1KpeIygcXZShYsV-V-UpEtmEqJQrW87CzSmlV8418Bv3kliFOiWgZ7zhjDkjZUCxFFP796I3CabsqI4mBFNThwE0yizafzqL0Lb5nNo32drpkyNAuJfBlDL7b63YrFE7Hn7rHRLP5ISgs-eSNI3Y69/s16000/1000014964.png",
+
+    "https://picsum.photos/id/20/900/700",
+    "https://picsum.photos/id/155/900/700",
+    "https://picsum.photos/id/169/900/700",
+    "https://picsum.photos/id/22/900/700",
+    "https://picsum.photos/id/96/900/700"
+  ];
+
+  const galleryContainer = document.getElementById("gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const closeLightboxBtn = document.getElementById("closeLightboxBtn");
+  const imageCounterSpan = document.getElementById("imageCounter");
+
+  let currentImageIndex = 0;
+
+  // Build gallery — each image uses width:100% + height:auto → exact ratio
+  function buildGallery() {
+    galleryContainer.innerHTML = "";
+    images.forEach((src, idx) => {
+      const card = document.createElement("div");
+      card.className = "gallery-item";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `Image ${idx + 1}`;
+      img.loading = "lazy";
+      card.addEventListener("click", () => openLightbox(idx));
+      card.appendChild(img);
+      galleryContainer.appendChild(card);
+    });
+  }
+
+  function updateLightboxImage() {
+    lightboxImg.src = images[currentImageIndex];
+    imageCounterSpan.textContent = `${currentImageIndex + 1} / ${images.length}`;
+    // Preload adjacent for smoothness
+    const next = new Image();
+    next.src = images[(currentImageIndex + 1) % images.length];
+    const prev = new Image();
+    prev.src = images[(currentImageIndex - 1 + images.length) % images.length];
+  }
+
+  function openLightbox(index) {
+    currentImageIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    updateLightboxImage();
+  }
+
+  function prevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    updateLightboxImage();
+  }
+
+  // Event listeners
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.getElementById("lightboxContainer")?.addEventListener("click", (e) => e.stopPropagation());
+  prevBtn.addEventListener("click", (e) => { e.stopPropagation(); prevImage(); });
+  nextBtn.addEventListener("click", (e) => { e.stopPropagation(); nextImage(); });
+  closeLightboxBtn.addEventListener("click", (e) => { e.stopPropagation(); closeLightbox(); });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("active")) return;
+    if (e.key === "ArrowLeft") { e.preventDefault(); prevImage(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); nextImage(); }
+    else if (e.key === "Escape") { e.preventDefault(); closeLightbox(); }
+  });
+
+  lightboxImg.addEventListener("dragstart", (e) => e.preventDefault());
+  buildGallery();
+</script>
+</body>
+</html>-webkit-text-fill-color:transparent;
 }
 
 .subtitle{
